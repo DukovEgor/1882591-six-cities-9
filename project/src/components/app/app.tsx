@@ -1,10 +1,11 @@
-import Main from '../main/main';
+import Main from '../pages/main/main';
 
-type AppPageProps = {
+
+type PropsType = {
   placesToStay: number;
 }
 
-function App({placesToStay}: AppPageProps): JSX.Element {
+function App({placesToStay}: PropsType): JSX.Element {
   return <Main placesToStay={placesToStay}/>;
 }
 

@@ -1,4 +1,5 @@
-import Card from '../card/card';
+import Card from '../../card/card';
+
 
 type MainPageProps = {
   placesToStay: number;
