@@ -1,5 +1,4 @@
 import './404.css';
-import { Animate404 } from '../../utils/utils';
 import { Link } from 'react-router-dom';
 export default function NotFound(): JSX.Element {
   return (
@@ -179,7 +178,6 @@ export default function NotFound(): JSX.Element {
                   </g>
                 </g>
               </svg>
-              {Animate404()}
             </div>
             <div>
               <h1>404</h1>
