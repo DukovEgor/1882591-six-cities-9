@@ -1,4 +1,4 @@
-export default function Property() {
+export default function Room() {
   return (
     <div className="page">
       <header className="header">
