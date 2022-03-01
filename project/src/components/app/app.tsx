@@ -6,25 +6,27 @@ import Main from '../../pages/main/main';
 import Room from '../../pages/room/room';
 import SignIn from '../../pages/sign-in/sign-in';
 import PrivateRoute from '../private-route/private-route';
+import { offer } from '../../types/offer';
 
 
 type PropsType = {
   placesToStay: number;
+  offers: offer[];
 }
 
-function App({ placesToStay }: PropsType): JSX.Element {
+function App({ placesToStay, offers }: PropsType): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoutes.Root}
-          element={<Main placesToStay={5} />}
+          element={<Main placesToStay={placesToStay} offers={offers}/>}
         />
         <Route
           path={AppRoutes.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AutorizationStatus.NoAuth}>
-              <Favorites />
+            <PrivateRoute authorizationStatus={AutorizationStatus.Auth}>
+              <Favorites offers={offers}/>
             </PrivateRoute>
           }
         />
