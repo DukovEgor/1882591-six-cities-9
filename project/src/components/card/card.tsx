@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
 import { offer } from '../../types/offer';
 
-export default function Card({title, price, type}: offer): JSX.Element {
+export default function Card({ title, price, type, id }: offer): JSX.Element {
   return (
     <article className="cities__place-card place-card">
       <div className="place-card__mark">
@@ -31,7 +32,7 @@ export default function Card({title, price, type}: offer): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="/">{title}</a>
+          <Link to={`/room:${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
