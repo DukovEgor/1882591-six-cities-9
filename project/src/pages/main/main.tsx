@@ -1,10 +1,10 @@
 import Logo from '../../components/logo/logo';
 import OffersList from '../../components/offers-list/offers-list';
-import { offer } from '../../types/offer';
+import { Offer } from '../../types/offer';
 
 type MainPageProps = {
   placesToStay: number;
-  offers: offer[];
+  offers: Offer[];
 }
 
 export default function Main({placesToStay, offers}: MainPageProps): JSX.Element {

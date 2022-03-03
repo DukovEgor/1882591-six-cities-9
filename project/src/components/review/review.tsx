@@ -1,29 +1,11 @@
-export default function Review({ review, rating }: {review: string, rating: string}): JSX.Element {
-  let ratingWidth = 0;
-  switch (rating) {
-    case '1':
-      ratingWidth = 20;
-      break;
-    case '2':
-      ratingWidth = 40;
-      break;
-    case '3':
-      ratingWidth = 60;
-      break;
-    case '4':
-      ratingWidth = 80;
-      break;
-    case '5':
-      ratingWidth = 100;
-      break;
-    default:
-      ratingWidth = 0;
-      break;
-  }
+
+export default function Review({ review, rating }: { review: string, rating: string }): JSX.Element {
+  const widthPointsPerStep = 20;
+  const ratingWidth = Number(rating) * widthPointsPerStep;
 
   const date = new Date();
-  const commentDate = date.toLocaleString('en-EN', { year: 'numeric', month: 'long'});
-  const commentAttr = date.toLocaleString('en-EN', { year: 'numeric', month: 'numeric', day: 'numeric'});
+  const commentDate = date.toLocaleString('en-EN', { year: 'numeric', month: 'long' });
+  const commentAttr = date.toLocaleString('en-EN', { year: 'numeric', month: 'numeric', day: 'numeric' });
 
   return (
     <li className="reviews__item">

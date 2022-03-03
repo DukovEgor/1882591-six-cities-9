@@ -6,12 +6,12 @@ import Main from '../../pages/main/main';
 import Room from '../../pages/room/room';
 import SignIn from '../../pages/sign-in/sign-in';
 import PrivateRoute from '../private-route/private-route';
-import { offer } from '../../types/offer';
+import { Offer } from '../../types/offer';
 
 
 type PropsType = {
   placesToStay: number;
-  offers: offer[];
+  offers: Offer[];
 }
 
 function App({ placesToStay, offers }: PropsType): JSX.Element {

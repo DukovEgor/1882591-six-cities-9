@@ -1,9 +1,9 @@
 import FavoriteCard from '../../components/favorite-card/favorite-card';
 import Logo from '../../components/logo/logo';
-import { offer } from '../../types/offer';
+import { Offer } from '../../types/offer';
 
 type favoritesProps = {
-  offers: offer[];
+  offers: Offer[];
 };
 
 export default function Favorites({ offers }: favoritesProps) {

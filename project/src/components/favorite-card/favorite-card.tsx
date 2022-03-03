@@ -1,6 +1,6 @@
-import { offer } from '../../types/offer';
+import { Offer } from '../../types/offer';
 
-export default function FavoriteCard({title, price, type}: offer) {
+export default function FavoriteCard({title, price, type}: Offer) {
   return (
     <article className="favorites__card place-card">
       <div className="place-card__mark">
