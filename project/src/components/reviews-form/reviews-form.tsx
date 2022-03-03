@@ -1,19 +1,30 @@
-import { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
-export default function ReviewsForm(): JSX.Element {
+type ReviewFormProps = {
+  reviewSubmitHandler: (evt: React.MouseEvent, data: { rating: string, review: string }) => void
+}
+
+export default function ReviewsForm({ reviewSubmitHandler }: ReviewFormProps): JSX.Element {
 
   const [formData, setFormData] = useState({
     review: '',
-    rating: 0,
+    rating: '0',
   });
 
-  const fieldChangeHandler = (evt: { target: { value: string | number, name: string } }) => {
+  const fieldChangeHandler = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = evt.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  const resetForm = () => {
+    setFormData({
+      review: '',
+      rating: '0',
+    });
+  };
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={resetForm}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         <input className="form__rating-input visually-hidden" onChange={fieldChangeHandler} name="rating" defaultValue={5} id="5-stars" type="radio" />
@@ -52,7 +63,7 @@ export default function ReviewsForm(): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={formData.review.length < 50} onClick={(event) => reviewSubmitHandler(event, formData)}>Submit</button>
       </div>
     </form>
   );

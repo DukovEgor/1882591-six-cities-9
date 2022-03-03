@@ -1,25 +1,30 @@
-export default function Review({ review, rating }: {review: string, rating: number}): JSX.Element {
+export default function Review({ review, rating }: {review: string, rating: string}): JSX.Element {
   let ratingWidth = 0;
   switch (rating) {
-    case 1:
+    case '1':
       ratingWidth = 20;
       break;
-    case 2:
+    case '2':
       ratingWidth = 40;
       break;
-    case 3:
+    case '3':
       ratingWidth = 60;
       break;
-    case 4:
+    case '4':
       ratingWidth = 80;
       break;
-    case 5:
+    case '5':
       ratingWidth = 100;
       break;
     default:
       ratingWidth = 0;
       break;
   }
+
+  const date = new Date();
+  const commentDate = date.toLocaleString('en-EN', { year: 'numeric', month: 'long'});
+  const commentAttr = date.toLocaleString('en-EN', { year: 'numeric', month: 'numeric', day: 'numeric'});
+
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -40,7 +45,7 @@ export default function Review({ review, rating }: {review: string, rating: numb
         <p className="reviews__text">
           {review}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
+        <time className="reviews__time" dateTime={`${commentAttr}`}>{`${commentDate}`}</time>
       </div>
     </li>
   );

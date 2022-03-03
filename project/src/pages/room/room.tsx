@@ -1,10 +1,30 @@
+import { useState } from 'react';
 import Logo from '../../components/logo/logo';
 import Review from '../../components/review/review';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
+import { IReview } from '../../types/review';
 
 
 export default function Room(): JSX.Element {
+  const [reviews, setReviews] = useState<IReview[]>([]);
+  const [formKey, setFormKey] = useState(0);
+
+  const reviewSubmitHandler = (evt: React.MouseEvent, data: { rating: string, review: string }) => {
+    const { rating, review } = data;
+
+    evt.preventDefault();
+
+    const newReview: IReview = {
+      review: review,
+      rating: rating,
+      id: Date.now(),
+    };
+
+    setReviews((prev) => [newReview, ...prev]);
+    setFormKey(formKey + 1);
+  };
+
   return (
     <div className="page">
       <header className="header">
@@ -152,9 +172,9 @@ export default function Room(): JSX.Element {
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews · <span className="reviews__amount">1</span></h2>
                 <ReviewsList>
-                  <Review review={''} rating={0} />
+                  {reviews.map((index) => <Review key={index.id} review={index.review} rating={index.rating} />)}
                 </ReviewsList>
-                <ReviewsForm />
+                <ReviewsForm key={formKey} reviewSubmitHandler={reviewSubmitHandler} />
               </section>
             </div>
           </div>
