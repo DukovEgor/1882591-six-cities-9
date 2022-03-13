@@ -1,19 +1,23 @@
 import Logo from '../../components/logo/logo';
+import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
+import { City, Points } from '../../types/map';
 import { Offer } from '../../types/offer';
 
 type MainPageProps = {
-  placesToStay: number;
-  offers: Offer[];
+  placesToStay: number,
+  offers: Offer[],
+  city: City,
+  points: Points,
 }
 
-export default function Main({placesToStay, offers}: MainPageProps): JSX.Element {
+export default function Main({ placesToStay, offers, city, points }: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
-            <Logo/>
+            <Logo />
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
@@ -94,7 +98,7 @@ export default function Main({placesToStay, offers}: MainPageProps): JSX.Element
               <OffersList offers={offers} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <Map city={city} points={points}/>
             </div>
           </div>
         </div>
