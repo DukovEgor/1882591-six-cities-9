@@ -169,13 +169,10 @@ export default function Room(): JSX.Element {
                   </p>
                 </div>
               </div>
-              <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews · <span className="reviews__amount">1</span></h2>
-                <ReviewsList>
-                  {reviews.map((index) => <Review key={index.id} review={index.review} rating={index.rating} />)}
-                </ReviewsList>
+              <ReviewsList reviewsCount={reviews.length} >
+                {reviews.map((index) => <Review key={index.id} review={index.review} rating={index.rating} />)}
                 <ReviewsForm key={formKey} reviewSubmitHandler={reviewSubmitHandler} />
-              </section>
+              </ReviewsList>
             </div>
           </div>
           <section className="property__map map" />
