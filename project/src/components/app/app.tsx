@@ -34,7 +34,7 @@ function App({ placesToStay, offers }: PropsType): JSX.Element {
         />
         <Route
           path={AppRoutes.Room}
-          element={<Room />}
+          element={<Room city={CITY} points={points} />}
         />
         <Route
           path={AppRoutes.SignIn}

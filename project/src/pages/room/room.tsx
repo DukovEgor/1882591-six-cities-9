@@ -3,28 +3,33 @@ import Logo from '../../components/logo/logo';
 import Review from '../../components/review/review';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
+import ReviewsMap from '../../components/reviews-map/reviews-map';
+import { City, Points } from '../../types/map';
 import { IReview } from '../../types/review';
 
+type roomProps = {
+  city: City,
+  points: Points,
+}
 
-export default function Room(): JSX.Element {
+export default function Room({ city, points }: roomProps): JSX.Element {
   const [reviews, setReviews] = useState<IReview[]>([]);
   const [formKey, setFormKey] = useState(0);
 
+
   const reviewSubmitHandler = (evt: React.MouseEvent, data: { rating: string, review: string }) => {
     const { rating, review } = data;
-
     evt.preventDefault();
-
     const newReview: IReview = {
       review: review,
       rating: rating,
       id: Date.now(),
     };
-
     setReviews((prev) => [newReview, ...prev]);
     setFormKey(formKey + 1);
   };
 
+  const pointsToShow = points.slice(0, 3);
   return (
     <div className="page">
       <header className="header">
@@ -175,7 +180,7 @@ export default function Room(): JSX.Element {
               </ReviewsList>
             </div>
           </div>
-          <section className="property__map map" />
+          <ReviewsMap city={city} points={pointsToShow} />
         </section>
         <div className="container">
           <section className="near-places places">

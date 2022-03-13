@@ -8,9 +8,10 @@ import 'leaflet/dist/leaflet.css';
 type mapProps = {
   city: City,
   points: Points,
+  className: string,
 };
 
-export default function Map({ city, points }: mapProps) {
+export default function Map({ city, points, className }: mapProps) {
   const mapRef = useRef(null);
   const map = useMap({ mapRef, city });
 
@@ -37,7 +38,7 @@ export default function Map({ city, points }: mapProps) {
 
   return (
     <section
-      className="cities__map map"
+      className={`${className} map`}
       ref={mapRef}
     />
   );

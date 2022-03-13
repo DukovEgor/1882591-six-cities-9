@@ -1,12 +1,12 @@
 import Logo from '../../components/logo/logo';
-import Map from '../../components/map/map';
+import MainMap from '../../components/main-map/main-map';
 import OffersList from '../../components/offers-list/offers-list';
 import { City, Points } from '../../types/map';
-import { Offer } from '../../types/offer';
+import { Offers } from '../../types/offer';
 
 type MainPageProps = {
   placesToStay: number,
-  offers: Offer[],
+  offers: Offers,
   city: City,
   points: Points,
 }
@@ -98,7 +98,7 @@ export default function Main({ placesToStay, offers, city, points }: MainPagePro
               <OffersList offers={offers} />
             </section>
             <div className="cities__right-section">
-              <Map city={city} points={points}/>
+              <MainMap city={city} points={points}/>
             </div>
           </div>
         </div>
