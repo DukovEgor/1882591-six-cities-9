@@ -24,15 +24,21 @@ function App({ offers }: PropsType): JSX.Element {
         <Route
           path={AppRoutes.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AutorizationStatus.Auth}>
-              <Favorites offers={offers} />
+            <PrivateRoute
+              authorizationStatus={AutorizationStatus.Auth}
+            >
+              <Favorites
+                offers={offers}
+              />
             </PrivateRoute>
           }
         />
-        <Route
-          path={AppRoutes.Room}
-          element={<Room offers={offers} />}
-        />
+        <Route path={AppRoutes.Room}>
+          <Route
+            path=":id"
+            element={<Room offers={offers} />}
+          />
+        </Route>
         <Route
           path={AppRoutes.SignIn}
           element={<SignIn />}
@@ -42,7 +48,7 @@ function App({ offers }: PropsType): JSX.Element {
           element={<NotFound />}
         />
       </Routes>
-    </BrowserRouter>
+    </BrowserRouter >
   );
 }
 
