@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import useMap from '../../hooks/useMap';
-import { URL_MARKER_DEFAULT } from '../../utils/const';
+import { ANCHOR_SIZES, ICONS_SIZES, URL_MARKER_DEFAULT } from '../../utils/const';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Offers } from '../../types/offer';
@@ -19,8 +19,8 @@ export default function Map({ offers, className }: mapProps) {
 
   const defaultCustomIcon = leaflet.icon({
     iconUrl: URL_MARKER_DEFAULT,
-    iconSize: [40, 40],
-    iconAnchor: [20, 20],
+    iconSize: ICONS_SIZES,
+    iconAnchor: ANCHOR_SIZES,
   });
 
   useEffect(() => {
