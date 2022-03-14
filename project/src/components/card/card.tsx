@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
+import { widthPointsPerStep } from '../../utils/const';
 
-export default function Card({ title, price, type, id }: Offer): JSX.Element {
+export default function Card({ title, price, type, id, isPremium, rating }: Offer): JSX.Element {
+  const ratingWidth = rating * widthPointsPerStep;
   return (
     <article className="cities__place-card place-card">
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
+      {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="/">
           <img className="place-card__image" src="img/apartment-01.jpg" width={260} height={200} alt="Place" />
@@ -27,7 +27,7 @@ export default function Card({ title, price, type, id }: Offer): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }} />
+            <span style={{ width: `${ratingWidth}%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

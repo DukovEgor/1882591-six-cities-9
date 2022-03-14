@@ -1,6 +1,6 @@
+import { widthPointsPerStep } from '../../utils/const';
 
 export default function Review({ review, rating }: { review: string, rating: string }): JSX.Element {
-  const widthPointsPerStep = 20;
   const ratingWidth = Number(rating) * widthPointsPerStep;
 
   const date = new Date();
