@@ -1,5 +1,6 @@
 import FavoriteCard from '../../components/favorite-card/favorite-card';
-import Logo from '../../components/logo/logo';
+import Header from '../../components/header/header';
+import Navigation from '../../components/navigation/navigation';
 import { Offer } from '../../types/offer';
 
 type favoritesProps = {
@@ -9,29 +10,9 @@ type favoritesProps = {
 export default function Favorites({ offers }: favoritesProps) {
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <Logo />
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="/">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="/">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header>
+        <Navigation />
+      </Header>
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
@@ -46,7 +27,25 @@ export default function Favorites({ offers }: favoritesProps) {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  {offers.map((index) => <FavoriteCard key={index.id} title={index.title} price={index.price} type={index.type} id={index.id} />)}
+                  {offers.map((index) => (
+                    <FavoriteCard key={index.id} title={index.title} price={index.price} type={index.type} id={index.id} bedrooms={0} city={{
+                      location: {
+                        latitude: 0,
+                        longitude: 0,
+                        zoom: 0,
+                      },
+                      name: '',
+                    }} description={''} goods={[]} host={{
+                      avatarUrl: '',
+                      id: 0,
+                      isPro: false,
+                      name: '',
+                    }} images={[]} isFavorite={false} isPremium={false} location={{
+                      latitude: 0,
+                      longitude: 0,
+                      zoom: 0,
+                    }} maxAdults={0} previewImage={''} rating={0}
+                    />))}
                 </div>
               </li>
             </ul>

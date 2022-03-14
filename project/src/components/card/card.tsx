@@ -1,12 +1,22 @@
 import { Link } from 'react-router-dom';
-import { Offer } from '../../types/offer';
+import { widthPointsPerStep } from '../../utils/const';
 
-export default function Card({ title, price, type, id }: Offer): JSX.Element {
+type cardProps = {
+  className: string,
+  title: string,
+  price: number,
+  type: string,
+  id: number,
+  isPremium: boolean,
+  isFavorite: boolean,
+  rating: number,
+}
+
+export default function Card({ className, title, price, type, id, isPremium, isFavorite, rating }: cardProps): JSX.Element {
+  const ratingWidth = rating * widthPointsPerStep;
   return (
-    <article className="cities__place-card place-card">
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
+    <article className={`${className} place-card`}>
+      { isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="/">
           <img className="place-card__image" src="img/apartment-01.jpg" width={260} height={200} alt="Place" />
@@ -18,7 +28,7 @@ export default function Card({ title, price, type, id }: Offer): JSX.Element {
             <b className="place-card__price-value">{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button className={`place-card__bookmark-button ${isFavorite && 'place-card__bookmark-button--active'} button`} type="button">
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />
             </svg>
@@ -27,7 +37,7 @@ export default function Card({ title, price, type, id }: Offer): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }} />
+            <span style={{ width: `${ratingWidth}%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -36,6 +46,6 @@ export default function Card({ title, price, type, id }: Offer): JSX.Element {
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
-    </article>
+    </article >
   );
 }

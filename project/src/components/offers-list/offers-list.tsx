@@ -1,14 +1,28 @@
-import { Offer } from '../../types/offer';
+import { Offers } from '../../types/offer';
 import Card from '../card/card';
 
 type OffersListProps = {
-  offers: Offer[];
+  offers: Offers,
+  className: string,
 }
 
-export default function OffersList({offers}: OffersListProps) {
+export default function OffersList({ className, offers }: OffersListProps) {
+  let OFFERS_TO_SHOW;
+  className === 'near-places__card' ? OFFERS_TO_SHOW = 3 : OFFERS_TO_SHOW = undefined;
   return (
-    <div className="cities__places-list places__list tabs__content">
-      {offers.map((index) => <Card key={index.id} title={index.title} price={index.price} type={index.type} id={index.id} />)}
-    </div>
+    <>
+      {offers.slice(OFFERS_TO_SHOW).map((index) => (
+        <Card
+          className={className}
+          key={index.id}
+          title={index.title}
+          price={index.price}
+          type={index.type}
+          id={index.id}
+          isPremium={index.isPremium}
+          isFavorite={index.isFavorite}
+          rating={index.rating}
+        />))}
+    </>
   );
 }

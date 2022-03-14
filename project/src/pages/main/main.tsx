@@ -1,42 +1,19 @@
-import Logo from '../../components/logo/logo';
-import Map from '../../components/map/map';
+import Header from '../../components/header/header';
+import MainMap from '../../components/main-map/main-map';
+import Navigation from '../../components/navigation/navigation';
 import OffersList from '../../components/offers-list/offers-list';
-import { City, Points } from '../../types/map';
-import { Offer } from '../../types/offer';
+import { Offers } from '../../types/offer';
 
 type MainPageProps = {
-  placesToStay: number,
-  offers: Offer[],
-  city: City,
-  points: Points,
+  offers: Offers,
 }
 
-export default function Main({ placesToStay, offers, city, points }: MainPageProps): JSX.Element {
+export default function Main({ offers }: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <Logo />
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="/">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="/">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header>
+        <Navigation />
+      </Header>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
@@ -79,7 +56,7 @@ export default function Main({ placesToStay, offers, city, points }: MainPagePro
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placesToStay} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -95,10 +72,12 @@ export default function Main({ placesToStay, offers, city, points }: MainPagePro
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <OffersList offers={offers} />
+              <div className="cities__places-list places__list tabs__content">
+                <OffersList offers={offers} className={'cities__place-card'} />
+              </div>
             </section>
             <div className="cities__right-section">
-              <Map city={city} points={points}/>
+              <MainMap offers={offers} />
             </div>
           </div>
         </div>
