@@ -16,15 +16,8 @@ export default function ReviewsForm({ reviewSubmitHandler }: ReviewFormProps): J
     setFormData({ ...formData, [name]: value });
   };
 
-  const resetForm = () => {
-    setFormData({
-      review: '',
-      rating: '0',
-    });
-  };
-
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={resetForm}>
+    <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         <input className="form__rating-input visually-hidden" onChange={fieldChangeHandler} name="rating" defaultValue={5} id="5-stars" type="radio" />
