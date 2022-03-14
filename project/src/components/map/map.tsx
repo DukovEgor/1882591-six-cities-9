@@ -1,19 +1,21 @@
 import { useEffect, useRef } from 'react';
 import useMap from '../../hooks/useMap';
-import { City, Points } from '../../types/map';
 import { URL_MARKER_DEFAULT } from '../../utils/const';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { Offers } from '../../types/offer';
+
 
 type mapProps = {
-  city: City,
-  points: Points,
+  offers: Offers,
   className: string,
-};
+}
 
-export default function Map({ city, points, className }: mapProps) {
+export default function Map({ offers, className }: mapProps) {
+  const offerForMock = offers[1];
+
   const mapRef = useRef(null);
-  const map = useMap({ mapRef, city });
+  const map = useMap({mapRef, ...offerForMock});
 
   const defaultCustomIcon = leaflet.icon({
     iconUrl: URL_MARKER_DEFAULT,
@@ -23,18 +25,19 @@ export default function Map({ city, points, className }: mapProps) {
 
   useEffect(() => {
     if (map) {
-      points.forEach((point) => {
+      offers.forEach((offer) => {
+        const { location: { latitude, longitude } } = offer;
         leaflet
           .marker({
-            lat: point.lat,
-            lng: point.lng,
+            lat: latitude,
+            lng: longitude,
           }, {
             icon: defaultCustomIcon,
           })
           .addTo(map);
       });
     }
-  }, [defaultCustomIcon, map, points]);
+  }, [defaultCustomIcon, map, offers]);
 
   return (
     <section

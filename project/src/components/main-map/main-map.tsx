@@ -1,11 +1,12 @@
-import { City, Points } from '../../types/map';
+import { Offers } from '../../types/offer';
 import Map from '../map/map';
+
 type mainMapProps = {
-  city: City,
-  points: Points,
+  offers: Offers,
 }
-export default function MainMap({ city, points }: mainMapProps) {
+
+export default function MainMap({ offers }: mainMapProps) {
   return (
-    <Map city={city} points={points} className={'cities__map'} />
+    <Map className={'cities__map'} offers={offers} />
   );
 }

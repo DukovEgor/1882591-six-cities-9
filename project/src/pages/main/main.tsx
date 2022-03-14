@@ -1,17 +1,13 @@
 import Logo from '../../components/logo/logo';
 import MainMap from '../../components/main-map/main-map';
 import OffersList from '../../components/offers-list/offers-list';
-import { City, Points } from '../../types/map';
 import { Offers } from '../../types/offer';
 
 type MainPageProps = {
-  placesToStay: number,
   offers: Offers,
-  city: City,
-  points: Points,
 }
 
-export default function Main({ placesToStay, offers, city, points }: MainPageProps): JSX.Element {
+export default function Main({ offers }: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -79,7 +75,7 @@ export default function Main({ placesToStay, offers, city, points }: MainPagePro
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placesToStay} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -95,10 +91,12 @@ export default function Main({ placesToStay, offers, city, points }: MainPagePro
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <OffersList offers={offers} />
+              <div className="cities__places-list places__list tabs__content">
+                <OffersList offers={offers} className={'cities__place-card'} />
+              </div>
             </section>
             <div className="cities__right-section">
-              <MainMap city={city} points={points}/>
+              <MainMap offers={offers} />
             </div>
           </div>
         </div>

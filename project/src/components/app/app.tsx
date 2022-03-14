@@ -7,22 +7,19 @@ import Room from '../../pages/room/room';
 import SignIn from '../../pages/sign-in/sign-in';
 import PrivateRoute from '../private-route/private-route';
 import { Offers } from '../../types/offer';
-import { CITY } from '../../mocks/city';
-import { points } from '../../mocks/points';
 
 
 type PropsType = {
-  placesToStay: number,
   offers: Offers,
 }
 
-function App({ placesToStay, offers }: PropsType): JSX.Element {
+function App({ offers }: PropsType): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoutes.Root}
-          element={<Main placesToStay={placesToStay} offers={offers} city={CITY} points={points} />}
+          element={<Main offers={offers} />}
         />
         <Route
           path={AppRoutes.Favorites}
@@ -34,7 +31,7 @@ function App({ placesToStay, offers }: PropsType): JSX.Element {
         />
         <Route
           path={AppRoutes.Room}
-          element={<Room city={CITY} points={points} />}
+          element={<Room offers={offers} />}
         />
         <Route
           path={AppRoutes.SignIn}

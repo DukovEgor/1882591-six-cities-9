@@ -1,11 +1,10 @@
-import { City, Points } from '../../types/map';
+import { Offers } from '../../types/offer';
 import Map from '../map/map';
 type reviewsMapProps = {
-  city: City,
-  points: Points,
+  offers: Offers,
 }
-export default function ReviewsMap({ city, points }: reviewsMapProps) {
+export default function ReviewsMap({ offers }: reviewsMapProps) {
   return (
-    <Map city={city} points={points} className={'property__map'} />
+    <Map className={'property__map'} offers={offers} />
   );
 }
