@@ -1,6 +1,7 @@
 import { City } from '../types/city';
 import { Offers } from '../types/offer';
 
+
 export enum AppRoutes {
   Root = '/',
   SignIn = '/sign-in',
