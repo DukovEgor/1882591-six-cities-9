@@ -1,25 +1,26 @@
 import { useState } from 'react';
 import Header from '../../components/header/header';
+import Map from '../../components/map/map';
 import Navigation from '../../components/navigation/navigation';
 import OffersList from '../../components/offers-list/offers-list';
 import Review from '../../components/review/review';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
-import ReviewsMap from '../../components/reviews-map/reviews-map';
-import { Offers } from '../../types/offer';
+import { useAppSelector } from '../../hooks';
 import { IReview } from '../../types/review';
 
-type roomProps = {
-  offers: Offers,
-}
+export default function Room(): JSX.Element {
+  const { city, offers } = useAppSelector((state) => state);
 
-export default function Room({ offers }: roomProps): JSX.Element {
   const [reviews, setReviews] = useState<IReview[]>([]);
   const [formKey, setFormKey] = useState(0);
 
   const reviewSubmitHandler = (evt: React.MouseEvent, data: { rating: string, review: string }) => {
+
     const { rating, review } = data;
+
     evt.preventDefault();
+
     const newReview: IReview = {
       review: review,
       rating: rating,
@@ -159,7 +160,7 @@ export default function Room({ offers }: roomProps): JSX.Element {
               </ReviewsList>
             </div>
           </div>
-          <ReviewsMap offers={offers} />
+          <Map className={'property__map'} offers={offers} city={city} />
         </section>
         <div className="container">
           <section className="near-places places">

@@ -1,14 +1,15 @@
 import Header from '../../components/header/header';
-import MainMap from '../../components/main-map/main-map';
+import LocationList from '../../components/location-list/locations-list';
+import Map from '../../components/map/map';
 import Navigation from '../../components/navigation/navigation';
 import OffersList from '../../components/offers-list/offers-list';
-import { Offers } from '../../types/offer';
+import { useAppSelector } from '../../hooks';
+import { getFilteredOffers } from '../../utils/utils';
 
-type MainPageProps = {
-  offers: Offers,
-}
 
-export default function Main({ offers }: MainPageProps): JSX.Element {
+export default function Main(): JSX.Element {
+  const { city, offers } = useAppSelector((state) => state);
+  const cityOffers = getFilteredOffers(city, offers);
   return (
     <div className="page page--gray page--main">
       <Header>
@@ -18,45 +19,14 @@ export default function Main({ offers }: MainPageProps): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active" href="/">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
+            <LocationList city={city} />
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+              <b className="places__found">{cityOffers.length} places to stay in {city.name}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -73,11 +43,11 @@ export default function Main({ offers }: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offers} className={'cities__place-card'} />
+                <OffersList offers={cityOffers} className={'cities__place-card'} />
               </div>
             </section>
             <div className="cities__right-section">
-              <MainMap offers={offers} />
+              <Map className={'cities__map'} offers={offers} city={city} />
             </div>
           </div>
         </div>

@@ -19,7 +19,7 @@ function App({ offers }: PropsType): JSX.Element {
       <Routes>
         <Route
           path={AppRoutes.Root}
-          element={<Main offers={offers} />}
+          element={<Main />}
         />
         <Route
           path={AppRoutes.Favorites}
@@ -36,7 +36,7 @@ function App({ offers }: PropsType): JSX.Element {
         <Route path={AppRoutes.Room}>
           <Route
             path=":id"
-            element={<Room offers={offers} />}
+            element={<Room />}
           />
         </Route>
         <Route
