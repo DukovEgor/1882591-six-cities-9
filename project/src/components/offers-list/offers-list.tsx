@@ -15,13 +15,7 @@ export default function OffersList({ className, offers }: OffersListProps) {
         <Card
           className={className}
           key={index.id}
-          title={index.title}
-          price={index.price}
-          type={index.type}
-          id={index.id}
-          isPremium={index.isPremium}
-          isFavorite={index.isFavorite}
-          rating={index.rating}
+          {...index}
         />))}
     </>
   );
