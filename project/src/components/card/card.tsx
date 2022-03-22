@@ -27,12 +27,12 @@ export default function Card({ className, title, price, type, id, isPremium, isF
       onMouseLeave={() => dispatch(changePinIcon({isHovered: false, id: id}))}
     >
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${className === 'favorites__card' ? 'favorites__image-wrapper' : 'cities__image-wrapper'} place-card__image-wrapper`}>
         <a href="/">
           <img className="place-card__image" src="img/apartment-01.jpg" width={260} height={200} alt="Place" />
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={`${className === 'favorites__card' ? 'favorites__card-info' : ''} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">{price}</b>
