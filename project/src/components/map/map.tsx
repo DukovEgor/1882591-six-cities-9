@@ -4,18 +4,19 @@ import { ANCHOR_SIZES, ICONS_SIZES, URL_MARKER_DEFAULT } from '../../utils/const
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Offers } from '../../types/offer';
+import { City } from '../../types/city';
 
 
 type mapProps = {
-  offers: Offers,
   className: string,
+  offers: Offers,
+  city: City,
 }
 
-export default function Map({ offers, className }: mapProps) {
-  const offerForMock = offers[1];
+export default function Map({ className, offers, city }: mapProps) {
 
   const mapRef = useRef(null);
-  const map = useMap({mapRef, ...offerForMock});
+  const map = useMap({ mapRef, city });
 
   const defaultCustomIcon = leaflet.icon({
     iconUrl: URL_MARKER_DEFAULT,
@@ -25,6 +26,7 @@ export default function Map({ offers, className }: mapProps) {
 
   useEffect(() => {
     if (map) {
+      map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
       offers.forEach((offer) => {
         const { location: { latitude, longitude } } = offer;
         leaflet
@@ -37,7 +39,7 @@ export default function Map({ offers, className }: mapProps) {
           .addTo(map);
       });
     }
-  }, [defaultCustomIcon, map, offers]);
+  }, [map, offers, city, defaultCustomIcon]);
 
   return (
     <section

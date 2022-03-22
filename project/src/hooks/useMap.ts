@@ -1,28 +1,23 @@
 import { MutableRefObject, useEffect, useState } from 'react';
 import { Map, TileLayer } from 'leaflet';
+import { City } from '../types/city';
 
 type useMapProps = {
   mapRef: MutableRefObject<HTMLElement | null>,
-  city: {
-    location: {
-      latitude: number,
-      longitude: number,
-      zoom: number,
-    },
-  },
+  city: City,
 };
 
-export default function useMap({ mapRef, city: {location: {latitude, longitude, zoom}} }: useMapProps): Map | null {
+export default function useMap({ mapRef, city }: useMapProps): Map | null {
   const [map, setMap] = useState<Map | null>(null);
 
   useEffect(() => {
     if (mapRef.current !== null && map === null) {
       const instance = new Map(mapRef.current, {
         center: {
-          lat: latitude,
-          lng: longitude,
+          lat: city.location.latitude,
+          lng: city.location.longitude,
         },
-        zoom: zoom,
+        zoom: city.location.zoom,
       });
 
       const layer = new TileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
@@ -34,7 +29,7 @@ export default function useMap({ mapRef, city: {location: {latitude, longitude, 
       instance.addLayer(layer);
       setMap(instance);
     }
-  }, [latitude, longitude, map, mapRef, zoom]);
+  }, [mapRef, map, city]);
 
   return map;
 }

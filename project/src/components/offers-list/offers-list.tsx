@@ -11,7 +11,7 @@ export default function OffersList({ className, offers }: OffersListProps) {
   className === 'near-places__card' ? OFFERS_TO_SHOW = 3 : OFFERS_TO_SHOW = undefined;
   return (
     <>
-      {offers.slice(OFFERS_TO_SHOW).map((index) => (
+      {offers.slice(0, OFFERS_TO_SHOW).map((index) => (
         <Card
           className={className}
           key={index.id}
