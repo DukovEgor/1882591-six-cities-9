@@ -1,6 +1,7 @@
 import { City } from '../types/city';
 import { Offers } from '../types/offer';
 
+
 export enum AppRoutes {
   Root = '/',
   SignIn = '/sign-in',
@@ -74,3 +75,34 @@ export const CITIES: City[] = [
 
 export const INITIAL_CITY = CITIES[3];
 export const INITIAL_OFFERS: Offers = [];
+
+export const sortingTypes = [
+  {
+    type: 'Popular',
+    checked: true,
+    sort(offers: Offers) {
+      return offers;
+    },
+  },
+  {
+    type: 'Price: low to high',
+    checked: false,
+    sort(offers: Offers) {
+      return offers.slice().sort((a, b) => a.price - b.price);
+    },
+  },
+  {
+    type: 'Price: high to low',
+    checked: false,
+    sort(offers: Offers) {
+      return offers.slice().sort((a, b) => b.price - a.price);
+    },
+  },
+  {
+    type: 'Top rated first',
+    checked: false,
+    sort(offers: Offers) {
+      return offers.slice().sort((a, b) => a.rating - b.rating);
+    },
+  },
+];

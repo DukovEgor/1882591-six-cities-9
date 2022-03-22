@@ -1,4 +1,5 @@
-import FavoriteCard from '../../components/favorite-card/favorite-card';
+import { Link } from 'react-router-dom';
+import Card from '../../components/card/card';
 import Header from '../../components/header/header';
 import Navigation from '../../components/navigation/navigation';
 import { Offer } from '../../types/offer';
@@ -28,24 +29,17 @@ export default function Favorites({ offers }: favoritesProps) {
                 </div>
                 <div className="favorites__places">
                   {offers.map((index) => (
-                    <FavoriteCard key={index.id} title={index.title} price={index.price} type={index.type} id={index.id} bedrooms={0} city={{
-                      location: {
-                        latitude: 0,
-                        longitude: 0,
-                        zoom: 0,
-                      },
-                      name: '',
-                    }} description={''} goods={[]} host={{
-                      avatarUrl: '',
-                      id: 0,
-                      isPro: false,
-                      name: '',
-                    }} images={[]} isFavorite={false} isPremium={false} location={{
-                      latitude: 0,
-                      longitude: 0,
-                      zoom: 0,
-                    }} maxAdults={0} previewImage={''} rating={0}
-                    />))}
+                    <Card key={`favorite${index.id}`}
+                      className={'favorites__card'}
+                      title={index.title}
+                      price={index.price}
+                      type={index.type}
+                      id={index.id}
+                      isPremium={index.isPremium}
+                      isFavorite={index.isFavorite}
+                      rating={index.rating}
+                    />
+                  ))}
                 </div>
               </li>
             </ul>
@@ -53,9 +47,9 @@ export default function Favorites({ offers }: favoritesProps) {
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
+        <Link className="footer__logo-link" to="/">
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width={64} height={33} />
-        </a>
+        </Link>
       </footer>
     </div>
 
