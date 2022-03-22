@@ -29,7 +29,7 @@ export default function Favorites({ offers }: favoritesProps) {
                 </div>
                 <div className="favorites__places">
                   {offers.map((index) => (
-                    <Card key={`favorite${index.id}`}
+                    <Card key={`favorite${index.bedrooms}`}
                       className={'favorites__card'}
                       title={index.title}
                       price={index.price}
