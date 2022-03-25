@@ -1,5 +1,6 @@
 import { City } from '../types/city';
 import { Offers } from '../types/offer';
+import { AuthorizationStatus } from './const';
 
 export function getFilteredOffers(city: City, offers: Offers) {
   return offers.filter((offer) => offer.city.name === city.name);
@@ -17,3 +18,7 @@ export function getSortedOffers(offers: Offers, type: string) {
       return offers;
   }
 }
+
+
+export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
+  authorizationStatus === AuthorizationStatus.Unknown;

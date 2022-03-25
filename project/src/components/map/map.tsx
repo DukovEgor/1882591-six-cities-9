@@ -34,7 +34,7 @@ export default function Map({ className, offers, city }: mapProps) {
 
   useEffect(() => {
     if (map) {
-      map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
+      map.flyTo([city.location.latitude, city.location.longitude], city.location.zoom);
       offers.forEach((offer) => {
         const { location: { latitude, longitude } } = offer;
         leaflet

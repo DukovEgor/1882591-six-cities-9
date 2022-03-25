@@ -155,7 +155,7 @@ export default function Room(): JSX.Element {
                 </div>
               </div>
               <ReviewsList reviewsCount={reviews.length} >
-                {reviews.map((index) => <Review key={index.id} review={index.review} rating={index.rating} />)}
+                {reviews.map((index) => <Review key={index.id} {...index} />)}
                 <ReviewsForm key={formKey} reviewSubmitHandler={reviewSubmitHandler} />
               </ReviewsList>
             </div>
