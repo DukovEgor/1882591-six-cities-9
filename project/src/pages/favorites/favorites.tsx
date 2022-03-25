@@ -2,13 +2,11 @@ import { Link } from 'react-router-dom';
 import Card from '../../components/card/card';
 import Header from '../../components/header/header';
 import Navigation from '../../components/navigation/navigation';
-import { Offer } from '../../types/offer';
+import { useAppSelector } from '../../hooks';
 
-type favoritesProps = {
-  offers: Offer[];
-};
 
-export default function Favorites({ offers }: favoritesProps) {
+export default function Favorites() {
+  const {offers} = useAppSelector((state) => state);
   return (
     <div className="page">
       <Header>
@@ -29,7 +27,7 @@ export default function Favorites({ offers }: favoritesProps) {
                 </div>
                 <div className="favorites__places">
                   {offers.map((index) => (
-                    <Card key={`${index.id + 234}`}
+                    <Card key={index.id}
                       className={'favorites__card'}
                       {...index}
                     />

@@ -9,11 +9,24 @@ export enum AppRoutes {
   Favorites = '/favorites',
 }
 
-export enum AutorizationStatus {
+export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export enum APIRoute {
+  Hotels = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}
+
+export enum HTTP_CODE {
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  NOT_FOUND = 404,
+}
+
 export const widthPointsPerStep = 20;
 
 export const ICONS_SIZES: [number, number] = [40, 40];
@@ -25,7 +38,7 @@ export const CITIES: City[] = [
     location: {
       latitude: 48.85661,
       longitude: 2.351499,
-      zoom: 10,
+      zoom: 13,
     },
   },
   {
@@ -33,7 +46,7 @@ export const CITIES: City[] = [
     location: {
       latitude: 50.938361,
       longitude: 6.959974,
-      zoom: 10,
+      zoom: 13,
     },
   },
   {
@@ -41,7 +54,7 @@ export const CITIES: City[] = [
     location: {
       latitude: 50.846557,
       longitude: 4.351697,
-      zoom: 10,
+      zoom: 13,
     },
   },
   {
@@ -49,7 +62,7 @@ export const CITIES: City[] = [
     location: {
       latitude: 52.37454,
       longitude: 4.897976,
-      zoom: 10,
+      zoom: 13,
     },
   },
   {
@@ -57,7 +70,7 @@ export const CITIES: City[] = [
     location: {
       latitude: 53.550341,
       longitude: 10.000654,
-      zoom: 10,
+      zoom: 13,
     },
   },
   {
@@ -65,12 +78,13 @@ export const CITIES: City[] = [
     location: {
       latitude: 51.225402,
       longitude: 6.776314,
-      zoom: 10,
+      zoom: 13,
     },
   },
 ];
 
 export const INITIAL_CITY = CITIES[3];
+export const INITIAL_OFFERS: Offers = [];
 
 export const sortingTypes = [
   {
