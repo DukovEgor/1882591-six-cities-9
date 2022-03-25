@@ -5,7 +5,7 @@ import { dropToken, saveToken } from '../services/token';
 import { AuthData } from '../types/auth-data';
 import { Offers } from '../types/offer';
 import { UserData } from '../types/user-data';
-import { APIRoute, AuthorizationStatus } from '../utils/const';
+import { APIRoute, AuthorizationStatus, ERROR_TIMEOUT } from '../utils/const';
 import { loadOffers, requireAuthorization, setError } from './actions';
 
 export const clearErrorAction = createAsyncThunk(
@@ -13,7 +13,7 @@ export const clearErrorAction = createAsyncThunk(
   () => {
     setTimeout(
       () => store.dispatch(setError('')),
-      2000,
+      ERROR_TIMEOUT,
     );
   },
 );
