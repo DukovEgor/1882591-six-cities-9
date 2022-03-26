@@ -4,7 +4,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthData } from '../../types/auth-data';
 import { loginAction } from '../../store/api-actions';
-
+import { toast } from 'react-toastify';
 
 export default function SignIn() {
 
@@ -13,13 +13,16 @@ export default function SignIn() {
   const { city } = useAppSelector((state) => state);
 
   const { register, reset, handleSubmit, formState: { errors } } = useForm<AuthData>({
-    mode: 'all',
+    mode: 'onSubmit',
   });
 
   const onSubmit: SubmitHandler<AuthData> = (data) => {
     dispatch(loginAction(data));
     reset();
   };
+
+  errors.login && toast.error(errors.login?.message);
+  errors.password && toast.error(errors.password?.message);
 
   return (
     <div className="page page--gray page--login">
@@ -68,20 +71,6 @@ export default function SignIn() {
                 />
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
-              {errors.login && (
-                <div style={{
-                  color: '#FF0066',
-                  paddingTop: '20px',
-                }}
-                >{errors.login?.message}
-                </div>)}
-              {errors.password && (
-                <div style={{
-                  color: '#FF0066',
-                  paddingTop: '20px',
-                }}
-                >{errors.password?.message}
-                </div>)}
             </form>
           </section>
           <section className="locations locations--login locations--current">

@@ -5,18 +5,8 @@ import { dropToken, saveToken } from '../services/token';
 import { AuthData } from '../types/auth-data';
 import { Offers } from '../types/offer';
 import { UserData } from '../types/user-data';
-import { APIRoute, AppRoutes, AuthorizationStatus, ERROR_TIMEOUT } from '../utils/const';
-import { loadOffers, redirectToRoute, requireAuthorization, setError } from './actions';
-
-export const clearErrorAction = createAsyncThunk(
-  'clearError',
-  () => {
-    setTimeout(
-      () => store.dispatch(setError('')),
-      ERROR_TIMEOUT,
-    );
-  },
-);
+import { APIRoute, AppRoutes, AuthorizationStatus } from '../utils/const';
+import { loadOffers, redirectToRoute, requireAuthorization } from './actions';
 
 export const fetchHotelsAction = createAsyncThunk(
   'data/fetchHotels',

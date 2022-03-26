@@ -27,8 +27,6 @@ export enum HTTP_CODE {
   NOT_FOUND = 404,
 }
 
-export const ERROR_TIMEOUT = 2000;
-
 export const widthPointsPerStep = 20;
 
 export const ICONS_SIZES: [number, number] = [40, 40];
