@@ -85,7 +85,7 @@ export const CITIES: City[] = [
   },
 ];
 
-export const INITIAL_CITY = CITIES[3];
+export const INITIAL_CITY = CITIES[0];
 export const INITIAL_OFFERS: Offers = [];
 
 export const sortingTypes = [

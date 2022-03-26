@@ -1,5 +1,7 @@
 import ReactLoading from 'react-loading';
+
 export default function LoadingScreen() {
+
   return (
     <div style={{
       height: '100vh',

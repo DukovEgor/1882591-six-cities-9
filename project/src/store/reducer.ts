@@ -1,9 +1,19 @@
 import { createReducer } from '@reduxjs/toolkit';
+import { City } from '../types/city';
+import { Offers } from '../types/offer';
 import { AuthorizationStatus, INITIAL_CITY, INITIAL_OFFERS } from '../utils/const';
 import { changePinIcon, loadOffers, requireAuthorization, setCity, setError, setSortType } from './actions';
 
-
-const initialState = {
+interface initialStateProps {
+  city: City,
+  offers: Offers,
+  sortType: string,
+  isCardHovered: { isHovered: boolean, id: number },
+  isDataLoaded: boolean,
+  authorizationStatus: AuthorizationStatus,
+  error: string | undefined,
+}
+const initialState: initialStateProps = {
   city: INITIAL_CITY,
   offers: INITIAL_OFFERS,
   sortType: 'popular',

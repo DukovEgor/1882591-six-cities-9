@@ -61,7 +61,7 @@ export const loginAction = createAsyncThunk(
     } catch (error) {
 
       errorHandle(error);
-
+      store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
   },
 );

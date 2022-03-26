@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AppRoutes, AuthorizationStatus } from '../../utils/const';
+import { AppRoutes } from '../../utils/const';
 import NotFound from '../../pages/404/404';
 import Favorites from '../../pages/favorites/favorites';
 import Main from '../../pages/main/main';
@@ -7,12 +7,12 @@ import Room from '../../pages/room/room';
 import SignIn from '../../pages/sign-in/sign-in';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
-import LoadingScreen from '../loading-screen/loading-screen';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 //import { isCheckedAuth } from '../../utils/utils';
 
 
 function App(): JSX.Element {
-  const {  isDataLoaded } = useAppSelector((state) => state);
+  const { isDataLoaded } = useAppSelector((state) => state);
 
   //if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
   if (!isDataLoaded) {
@@ -30,9 +30,7 @@ function App(): JSX.Element {
         <Route
           path={AppRoutes.Favorites}
           element={
-            <PrivateRoute
-              authorizationStatus={AuthorizationStatus.Auth}
-            >
+            <PrivateRoute>
               <Favorites />
             </PrivateRoute>
           }
