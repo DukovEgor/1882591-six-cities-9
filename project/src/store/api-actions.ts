@@ -6,7 +6,7 @@ import { AuthData } from '../types/auth-data';
 import { Offers } from '../types/offer';
 import { UserData } from '../types/user-data';
 import { APIRoute, AppRoutes, AuthorizationStatus } from '../utils/const';
-import { loadOffers, redirectToRoute, requireAuthorization } from './actions';
+import { loadOffers, redirectToRoute, requireAuthorization, setUserData } from './actions';
 
 export const fetchHotelsAction = createAsyncThunk(
   'data/fetchHotels',
@@ -28,8 +28,9 @@ export const checkAuthAction = createAsyncThunk(
   async () => {
     try {
 
-      await api.get(APIRoute.Login);
+      const { data } = await api.get<UserData>(APIRoute.Login);
       store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      store.dispatch(setUserData(data));
 
     } catch (error) {
 
@@ -44,10 +45,11 @@ export const loginAction = createAsyncThunk(
   async ({ login: email, password }: AuthData) => {
     try {
 
-      const { data: { token } } = await api.post<UserData>(APIRoute.Login, { email, password });
-      saveToken(token);
+      const { data } = await api.post<UserData>(APIRoute.Login, { email, password });
+      saveToken(data.token);
       store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
       store.dispatch(redirectToRoute(AppRoutes.Root));
+      store.dispatch(setUserData(data));
 
     } catch (error) {
 
