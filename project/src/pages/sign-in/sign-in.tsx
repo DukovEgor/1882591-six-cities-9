@@ -1,16 +1,14 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '../../components/header/header';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthData } from '../../types/auth-data';
 import { loginAction } from '../../store/api-actions';
-import { AppRoutes } from '../../utils/const';
 
 
 export default function SignIn() {
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const { city } = useAppSelector((state) => state);
 
@@ -21,7 +19,6 @@ export default function SignIn() {
   const onSubmit: SubmitHandler<AuthData> = (data) => {
     dispatch(loginAction(data));
     reset();
-    navigate(AppRoutes.Root);
   };
 
   return (

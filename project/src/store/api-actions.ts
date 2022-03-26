@@ -5,8 +5,8 @@ import { dropToken, saveToken } from '../services/token';
 import { AuthData } from '../types/auth-data';
 import { Offers } from '../types/offer';
 import { UserData } from '../types/user-data';
-import { APIRoute, AuthorizationStatus, ERROR_TIMEOUT } from '../utils/const';
-import { loadOffers, requireAuthorization, setError } from './actions';
+import { APIRoute, AppRoutes, AuthorizationStatus, ERROR_TIMEOUT } from '../utils/const';
+import { loadOffers, redirectToRoute, requireAuthorization, setError } from './actions';
 
 export const clearErrorAction = createAsyncThunk(
   'clearError',
@@ -44,7 +44,7 @@ export const checkAuthAction = createAsyncThunk(
     } catch (error) {
 
       errorHandle(error);
-
+      store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
   },
 );
@@ -57,6 +57,7 @@ export const loginAction = createAsyncThunk(
       const { data: { token } } = await api.post<UserData>(APIRoute.Login, { email, password });
       saveToken(token);
       store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      store.dispatch(redirectToRoute(AppRoutes.Root));
 
     } catch (error) {
 

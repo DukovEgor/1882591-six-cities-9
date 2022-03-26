@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { AppRoutes } from '../../utils/const';
 import NotFound from '../../pages/404/404';
 import Favorites from '../../pages/favorites/favorites';
@@ -8,20 +8,22 @@ import SignIn from '../../pages/sign-in/sign-in';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
-//import { isCheckedAuth } from '../../utils/utils';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history/browser-history';
+import { isCheckedAuth } from '../../utils/utils';
 
 
 function App(): JSX.Element {
-  const { isDataLoaded } = useAppSelector((state) => state);
 
-  //if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
-  if (!isDataLoaded) {
+  const { authorizationStatus, isDataLoaded } = useAppSelector((state) => state);
+
+  if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return (
       <LoadingScreen />
     );
   }
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoutes.Root}
@@ -50,7 +52,7 @@ function App(): JSX.Element {
           element={<NotFound />}
         />
       </Routes>
-    </BrowserRouter >
+    </HistoryRouter >
   );
 }
 
