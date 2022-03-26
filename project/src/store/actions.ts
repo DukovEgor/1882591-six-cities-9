@@ -1,12 +1,11 @@
 import { createAction } from '@reduxjs/toolkit';
 import { City } from '../types/city';
 import { Offers } from '../types/offer';
-import { AuthorizationStatus } from '../utils/const';
+import { AppRoutes, AuthorizationStatus } from '../utils/const';
 
 export const setCity = createAction<City>('setCity');
-export const getOffers = createAction<Offers>('getOffers');
 export const setSortType = createAction<string>('setFilter');
 export const changePinIcon = createAction<{ isHovered: boolean, id: number }>('changePinIcon');
 export const loadOffers = createAction<Offers>('loadOffers');
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
-export const setError = createAction<string>('setError');
+export const redirectToRoute = createAction<AppRoutes>('redirectToRoute');

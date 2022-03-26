@@ -13,12 +13,11 @@ export function getSortedOffers(offers: Offers, type: string) {
     case 'Price: high to low':
       return offers.slice().sort((a, b) => b.price - a.price);
     case 'Top rated first':
-      return offers.slice().sort((a, b) => a.rating - b.rating);
+      return offers.slice().sort((a, b) => b.rating - a.rating);
     default:
       return offers;
   }
 }
-
 
 export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
   authorizationStatus === AuthorizationStatus.Unknown;
