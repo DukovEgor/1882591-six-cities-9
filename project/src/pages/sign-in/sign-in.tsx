@@ -18,10 +18,10 @@ export default function SignIn() {
   });
 
   const onSubmit: SubmitHandler<AuthData> = (data) => {
+
     dispatch(loginAction(data));
     reset();
     navigate('/');
-
   };
 
   errors.login && toast.error(errors.login?.message);

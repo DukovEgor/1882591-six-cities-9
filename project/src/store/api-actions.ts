@@ -15,10 +15,10 @@ export const fetchHotelsAction = createAsyncThunk(
 
       const { data } = await api.get<Offers>(APIRoute.Hotels);
       store.dispatch(loadOffers(data));
+
     } catch (error) {
 
       errorHandle(error);
-
     }
   },
 );
@@ -69,7 +69,6 @@ export const logoutAction = createAsyncThunk(
     } catch (error) {
 
       errorHandle(error);
-
     }
   },
 );
