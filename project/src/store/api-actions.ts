@@ -3,10 +3,10 @@ import { api, store } from '.';
 import { errorHandle } from '../services/error-handle';
 import { dropToken, saveToken } from '../services/token';
 import { AuthData } from '../types/auth-data';
-import { Offers } from '../types/offer';
+import { Offer, Offers } from '../types/offer';
 import { UserData } from '../types/user-data';
 import { APIRoute, AppRoutes, AuthorizationStatus } from '../utils/const';
-import { loadOffers, redirectToRoute, requireAuthorization, setUserData } from './actions';
+import { loadOffer, loadOffers, redirectToRoute, requireAuthorization, setUserData } from './actions';
 
 export const fetchHotelsAction = createAsyncThunk(
   'data/fetchHotels',
@@ -15,6 +15,21 @@ export const fetchHotelsAction = createAsyncThunk(
 
       const { data } = await api.get<Offers>(APIRoute.Hotels);
       store.dispatch(loadOffers(data));
+
+    } catch (error) {
+
+      errorHandle(error);
+    }
+  },
+);
+
+export const fetchHotelAction = createAsyncThunk(
+  'data/fetchHotel',
+  async (id: number) => {
+    try {
+
+      const { data } = await api.get<Offer>(`${APIRoute.Hotels}/${id}`);
+      store.dispatch(loadOffer(data));
 
     } catch (error) {
 

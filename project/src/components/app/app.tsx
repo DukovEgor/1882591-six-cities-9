@@ -12,7 +12,6 @@ import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history/browser-history';
 import { isCheckedAuth } from '../../utils/utils';
 
-
 function App(): JSX.Element {
 
   const { authorizationStatus, isDataLoaded } = useAppSelector((state) => state);
