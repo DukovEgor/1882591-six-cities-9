@@ -1,10 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 
-type ReviewFormProps = {
-  reviewSubmitHandler: (evt: React.MouseEvent, data: { rating: string, review: string }) => void
-}
-
-export default function ReviewsForm({ reviewSubmitHandler }: ReviewFormProps): JSX.Element {
+export default function ReviewsForm(): JSX.Element {
 
   const [formData, setFormData] = useState({
     review: '',
@@ -56,7 +52,7 @@ export default function ReviewsForm({ reviewSubmitHandler }: ReviewFormProps): J
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={formData.review.length < 50} onClick={(event) => reviewSubmitHandler(event, formData)}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={formData.review.length < 50 || formData.review.length > 300}>Submit</button>
       </div>
     </form>
   );

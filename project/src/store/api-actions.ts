@@ -4,9 +4,10 @@ import { errorHandle } from '../services/error-handle';
 import { dropToken, saveToken } from '../services/token';
 import { AuthData } from '../types/auth-data';
 import { Offer, Offers } from '../types/offer';
+import { IReview } from '../types/review';
 import { UserData } from '../types/user-data';
 import { APIRoute, AppRoutes, AuthorizationStatus } from '../utils/const';
-import { loadOffer, loadOffers, redirectToRoute, requireAuthorization, setUserData } from './actions';
+import { loadOffer, loadOffers, loadReviews, redirectToRoute, requireAuthorization, setUserData } from './actions';
 
 export const fetchHotelsAction = createAsyncThunk(
   'data/fetchHotels',
@@ -30,6 +31,21 @@ export const fetchHotelAction = createAsyncThunk(
 
       const { data } = await api.get<Offer>(`${APIRoute.Hotels}/${id}`);
       store.dispatch(loadOffer(data));
+
+    } catch (error) {
+
+      errorHandle(error);
+    }
+  },
+);
+
+export const fetchReviewsAction = createAsyncThunk(
+  'data/fetchReviews',
+  async (id: number) => {
+    try {
+
+      const { data } = await api.get<IReview[]>(`${APIRoute.Comments}/${id}`);
+      store.dispatch(loadReviews(data));
 
     } catch (error) {
 

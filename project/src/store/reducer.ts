@@ -1,9 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { City } from '../types/city';
 import { Offer, Offers } from '../types/offer';
+import { IReview } from '../types/review';
 import { UserData } from '../types/user-data';
-import { AuthorizationStatus, INITIAL_CITY, INITIAL_OFFERS } from '../utils/const';
-import { changePinIcon, loadOffer, loadOffers, requireAuthorization, setCity, setSortType, setUserData } from './actions';
+import { AuthorizationStatus, INITIAL_CITY, INITIAL_OFFERS, INITIAL_REVIEWS } from '../utils/const';
+import { changePinIcon, loadOffer, loadOffers, loadReviews, requireAuthorization, setCity, setSortType, setUserData } from './actions';
 
 interface initialStateProps {
   city: City,
@@ -13,7 +14,8 @@ interface initialStateProps {
   isCardHovered: { isHovered: boolean, id: number },
   isDataLoaded: boolean,
   authorizationStatus: AuthorizationStatus,
-  user: UserData;
+  user: UserData,
+  reviews: IReview[],
 }
 const initialState: initialStateProps = {
   city: INITIAL_CITY,
@@ -64,6 +66,7 @@ const initialState: initialStateProps = {
     title: '',
     type: '',
   },
+  reviews: INITIAL_REVIEWS,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -77,6 +80,10 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadOffer, (state, action) => {
       state.offer = action.payload;
+      state.isDataLoaded = true;
+    })
+    .addCase(loadReviews, (state, action) => {
+      state.reviews = action.payload;
       state.isDataLoaded = true;
     })
     .addCase(setUserData, (state, action) => {

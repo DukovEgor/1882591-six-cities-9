@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
@@ -8,39 +8,20 @@ import Review from '../../components/review/review';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchHotelAction } from '../../store/api-actions';
-import { IReview } from '../../types/review';
+import { fetchHotelAction, fetchReviewsAction } from '../../store/api-actions';
 
 export default function Room(): JSX.Element {
 
   const { id } = useParams();
+  const offerId = Number(id);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchHotelAction(Number(id)));
-  }, [dispatch, id]);
+    dispatch(fetchHotelAction(offerId));
+    dispatch(fetchReviewsAction(offerId));
+  }, [dispatch, offerId]);
 
-  const { city, offers, offer } = useAppSelector((state) => state);
-
-  const [reviews, setReviews] = useState<IReview[]>([]);
-  const [formKey, setFormKey] = useState(0);
-
-
-  const reviewSubmitHandler = (evt: React.MouseEvent, data: { rating: string, review: string }) => {
-
-    const { rating, review } = data;
-
-    evt.preventDefault();
-
-    const newReview: IReview = {
-      review: review,
-      rating: rating,
-      id: Date.now(),
-    };
-
-    setReviews((prev) => [newReview, ...prev]);
-    setFormKey(formKey + 1);
-  };
+  const { city, offers, offer, reviews } = useAppSelector((state) => state);
 
   const { images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods, host, description } = offer;
   const { avatarUrl, name, isPro } = host;
@@ -134,7 +115,7 @@ export default function Room(): JSX.Element {
               </div>
               <ReviewsList reviewsCount={reviews.length} >
                 {reviews.map((index) => <Review key={index.id} {...index} />)}
-                <ReviewsForm key={formKey} reviewSubmitHandler={reviewSubmitHandler} />
+                <ReviewsForm  />
               </ReviewsList>
             </div>
           </div>
