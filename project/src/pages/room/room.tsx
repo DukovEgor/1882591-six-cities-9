@@ -8,20 +8,21 @@ import Review from '../../components/review/review';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchHotelAction, fetchReviewsAction } from '../../store/api-actions';
+import { fetchHotelAction, fetchNearbyAction, fetchReviewsAction } from '../../store/api-actions';
 
 export default function Room(): JSX.Element {
-
   const { id } = useParams();
   const offerId = Number(id);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchHotelAction(offerId));
     dispatch(fetchReviewsAction(offerId));
+    dispatch(fetchNearbyAction(offerId));
   }, [dispatch, offerId]);
 
-  const { city, offers, offer, reviews } = useAppSelector((state) => state);
+  const { city, offers, offer, reviews, nearby } = useAppSelector((state) => state);
 
   const { images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods, host, description } = offer;
   const { avatarUrl, name, isPro } = host;
@@ -125,7 +126,7 @@ export default function Room(): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersList offers={offers} className={'near-places__card'} />
+              <OffersList offers={nearby} className={'near-places__card'} />
             </div>
           </section>
         </div>

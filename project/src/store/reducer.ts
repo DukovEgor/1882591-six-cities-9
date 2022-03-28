@@ -4,7 +4,7 @@ import { Offer, Offers } from '../types/offer';
 import { IReview } from '../types/review';
 import { UserData } from '../types/user-data';
 import { AuthorizationStatus, INITIAL_CITY, INITIAL_OFFERS, INITIAL_REVIEWS } from '../utils/const';
-import { changePinIcon, loadOffer, loadOffers, loadReviews, requireAuthorization, setCity, setSortType, setUserData } from './actions';
+import { changePinIcon, loadNearby, loadOffer, loadOffers, loadReviews, requireAuthorization, setCity, setSortType, setUserData } from './actions';
 
 interface initialStateProps {
   city: City,
@@ -16,6 +16,7 @@ interface initialStateProps {
   authorizationStatus: AuthorizationStatus,
   user: UserData,
   reviews: IReview[],
+  nearby: Offers,
 }
 const initialState: initialStateProps = {
   city: INITIAL_CITY,
@@ -67,6 +68,7 @@ const initialState: initialStateProps = {
     type: '',
   },
   reviews: INITIAL_REVIEWS,
+  nearby: [],
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -84,6 +86,10 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadReviews, (state, action) => {
       state.reviews = action.payload;
+      state.isDataLoaded = true;
+    })
+    .addCase(loadNearby, (state, action) => {
+      state.nearby = action.payload;
       state.isDataLoaded = true;
     })
     .addCase(setUserData, (state, action) => {

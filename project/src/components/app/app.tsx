@@ -11,6 +11,7 @@ import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history/browser-history';
 import { isCheckedAuth } from '../../utils/utils';
+import OptionalRoute from '../optional-route/optional-route';
 
 function App(): JSX.Element {
 
@@ -36,10 +37,12 @@ function App(): JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoutes.Room}>
-          <Route
-            path=":id"
-            element={<Room />}
+        <Route path={AppRoutes.Room} >
+          <Route path=":id" element={
+            <OptionalRoute>
+              <Room />
+            </OptionalRoute>
+          }
           />
         </Route>
         <Route
