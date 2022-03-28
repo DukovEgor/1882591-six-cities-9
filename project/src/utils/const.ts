@@ -1,5 +1,6 @@
 import { City } from '../types/city';
 import { Offers } from '../types/offer';
+import { IReview } from '../types/review';
 
 
 export enum AppRoutes {
@@ -19,6 +20,7 @@ export enum APIRoute {
   Hotels = '/hotels',
   Login = '/login',
   Logout = '/logout',
+  Comments = '/comments',
 }
 
 export enum HTTP_CODE {
@@ -85,6 +87,7 @@ export const CITIES: City[] = [
 
 export const INITIAL_CITY = CITIES[0];
 export const INITIAL_OFFERS: Offers = [];
+export const INITIAL_REVIEWS: IReview[] = [];
 
 export const sortingTypes = [
   {

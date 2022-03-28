@@ -7,11 +7,10 @@ type OffersListProps = {
 }
 
 export default function OffersList({ className, offers }: OffersListProps) {
-  let OFFERS_TO_SHOW;
-  className === 'near-places__card' ? OFFERS_TO_SHOW = 3 : OFFERS_TO_SHOW = undefined;
+
   return (
     <>
-      {offers.slice(0, OFFERS_TO_SHOW).map((index) => (
+      {offers.map((index) => (
         <Card
           className={className}
           key={index.id}

@@ -1,20 +1,23 @@
+import { IReview } from '../../types/review';
 import { widthPointsPerStep } from '../../utils/const';
 
-export default function Review({ review, rating }: { review: string, rating: string }): JSX.Element {
-  const ratingWidth = Number(rating) * widthPointsPerStep;
+export default function Review({user, comment, date, rating}: IReview): JSX.Element {
 
-  const date = new Date();
-  const commentDate = date.toLocaleString('en-EN', { year: 'numeric', month: 'long' });
-  const commentAttr = date.toLocaleString('en-EN', { year: 'numeric', month: 'numeric', day: 'numeric' });
+  const {avatarUrl, name} = user;
+
+  const ratingWidth = rating * widthPointsPerStep;
+  const rawDate = new Date(date);
+  const commentDate = rawDate.toLocaleString('en-EN', { year: 'numeric', month: 'long' });
+  const commentAttr = rawDate.toLocaleString('en-EN', { year: 'numeric', month: 'numeric', day: 'numeric' });
 
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
-          <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width={54} height={54} alt="Reviews avatar" />
+          <img className="reviews__avatar user__avatar" src={avatarUrl} width={54} height={54} alt="Reviews avatar" />
         </div>
         <span className="reviews__user-name">
-          Max
+          {name}
         </span>
       </div>
       <div className="reviews__info">
@@ -25,7 +28,7 @@ export default function Review({ review, rating }: { review: string, rating: str
           </div>
         </div>
         <p className="reviews__text">
-          {review}
+          {comment}
         </p>
         <time className="reviews__time" dateTime={`${commentAttr}`}>{`${commentDate}`}</time>
       </div>

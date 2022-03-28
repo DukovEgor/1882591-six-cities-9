@@ -47,7 +47,7 @@ export default function Map({ className, offers, city }: mapProps) {
           .addTo(map);
       });
     }
-  }, [map, offers, city, defaultCustomIcon, activeCustomIcon, isCardHovered.isHovered, isCardHovered.id]);
+  }, [activeCustomIcon, city.location.latitude, city.location.longitude, city.location.zoom, defaultCustomIcon, isCardHovered.id, isCardHovered.isHovered, map, offers]);
 
   return (
     <section

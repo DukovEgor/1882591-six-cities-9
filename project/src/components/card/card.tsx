@@ -12,9 +12,10 @@ type cardProps = {
   isPremium: boolean,
   isFavorite: boolean,
   rating: number,
+  previewImage: string,
 }
 
-export default function Card({ className, title, price, type, id, isPremium, isFavorite, rating }: cardProps): JSX.Element {
+export default function Card({ className, title, price, type, id, isPremium, isFavorite, rating, previewImage }: cardProps): JSX.Element {
 
   const dispatch = useAppDispatch();
 
@@ -28,9 +29,9 @@ export default function Card({ className, title, price, type, id, isPremium, isF
     >
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className={`${className === 'favorites__card' ? 'favorites__image-wrapper' : 'cities__image-wrapper'} place-card__image-wrapper`}>
-        <a href="/">
-          <img className="place-card__image" src="img/apartment-01.jpg" width={260} height={200} alt="Place" />
-        </a>
+        <Link to={`/room/${id}`}>
+          <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place" />
+        </Link>
       </div>
       <div className={`${className === 'favorites__card' ? 'favorites__card-info' : ''} place-card__info`}>
         <div className="place-card__price-wrapper">

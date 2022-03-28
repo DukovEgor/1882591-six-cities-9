@@ -8,10 +8,10 @@ import SignIn from '../../pages/sign-in/sign-in';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history/browser-history';
 import { isCheckedAuth } from '../../utils/utils';
-
+import OptionalRoute from '../optional-route/optional-route';
 
 function App(): JSX.Element {
 
@@ -37,10 +37,12 @@ function App(): JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoutes.Room}>
-          <Route
-            path=":id"
-            element={<Room />}
+        <Route path={AppRoutes.Room} >
+          <Route path=":id" element={
+            <OptionalRoute>
+              <Room />
+            </OptionalRoute>
+          }
           />
         </Route>
         <Route
