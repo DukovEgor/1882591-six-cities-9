@@ -10,3 +10,8 @@ export interface IReview {
     name: string,
   },
 }
+
+export interface INewReview {
+  comment: string,
+  rating: number,
+}

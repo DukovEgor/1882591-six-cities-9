@@ -9,6 +9,7 @@ import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchHotelAction, fetchNearbyAction, fetchReviewsAction } from '../../store/api-actions';
+import { AuthorizationStatus } from '../../utils/const';
 
 export default function Room(): JSX.Element {
   const { id } = useParams();
@@ -16,13 +17,15 @@ export default function Room(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
+  const { city, offers, offer, reviews, nearby, authorizationStatus } = useAppSelector((state) => state);
+  // eslint-disable-next-line no-console
+  console.log(reviews);
   useEffect(() => {
     dispatch(fetchHotelAction(offerId));
     dispatch(fetchReviewsAction(offerId));
     dispatch(fetchNearbyAction(offerId));
   }, [dispatch, offerId]);
 
-  const { city, offers, offer, reviews, nearby } = useAppSelector((state) => state);
 
   const { images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods, host, description } = offer;
   const { avatarUrl, name, isPro } = host;
@@ -116,7 +119,7 @@ export default function Room(): JSX.Element {
               </div>
               <ReviewsList reviewsCount={reviews.length} >
                 {reviews.map((index) => <Review key={index.id} {...index} />)}
-                <ReviewsForm  />
+                {authorizationStatus === AuthorizationStatus.Auth && <ReviewsForm id={offerId} />}
               </ReviewsList>
             </div>
           </div>

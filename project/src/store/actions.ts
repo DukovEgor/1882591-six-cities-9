@@ -11,6 +11,7 @@ export const changePinIcon = createAction<{ isHovered: boolean, id: number }>('c
 export const loadOffers = createAction<Offers>('loadOffers');
 export const loadOffer = createAction<Offer>('loadOffer');
 export const loadReviews = createAction<IReview[]>('loadReviews');
+export const loadNewReview = createAction<IReview[]>('loadNewReview');
 export const loadNearby = createAction<Offers>('loadNearby');
 export const setUserData = createAction<UserData>('setUserData');
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');

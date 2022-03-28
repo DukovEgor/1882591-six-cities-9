@@ -7,7 +7,7 @@ import { Offer, Offers } from '../types/offer';
 import { IReview } from '../types/review';
 import { UserData } from '../types/user-data';
 import { APIRoute, AppRoutes, AuthorizationStatus } from '../utils/const';
-import { loadNearby, loadOffer, loadOffers, loadReviews, redirectToRoute, requireAuthorization, setUserData } from './actions';
+import { loadNearby, loadNewReview, loadOffer, loadOffers, loadReviews, redirectToRoute, requireAuthorization, setUserData } from './actions';
 
 export const fetchHotelsAction = createAsyncThunk(
   'data/fetchHotels',
@@ -61,6 +61,21 @@ export const fetchReviewsAction = createAsyncThunk(
 
       const { data } = await api.get<IReview[]>(`${APIRoute.Comments}/${id}`);
       store.dispatch(loadReviews(data));
+
+    } catch (error) {
+
+      errorHandle(error);
+    }
+  },
+);
+
+export const fetchNewReviewAction = createAsyncThunk(
+  'data/fetchNewReview',
+  async ({id, comment, rating}: {id: number, comment: string, rating: number}) => {
+    try {
+
+      const { data } = await api.post<IReview[]>(`${APIRoute.Comments}/${id}`, {comment, rating});
+      store.dispatch(loadNewReview(data));
 
     } catch (error) {
 
