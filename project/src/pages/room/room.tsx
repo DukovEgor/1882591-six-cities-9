@@ -17,7 +17,7 @@ export default function Room(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const { city, offers, offer, reviews, nearby, authorizationStatus } = useAppSelector((state) => state);
+  const { offer, reviews, nearby, authorizationStatus } = useAppSelector((state) => state);
   // eslint-disable-next-line no-console
   console.log(reviews);
   useEffect(() => {
@@ -123,7 +123,7 @@ export default function Room(): JSX.Element {
               </ReviewsList>
             </div>
           </div>
-          <Map className={'property__map'} offers={offers} city={city} />
+          <Map className={'property__map'} />
         </section>
         <div className="container">
           <section className="near-places places">

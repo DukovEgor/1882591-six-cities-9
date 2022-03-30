@@ -3,19 +3,15 @@ import useMap from '../../hooks/useMap';
 import { ANCHOR_SIZES, ICONS_SIZES } from '../../utils/const';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Offers } from '../../types/offer';
-import { City } from '../../types/city';
 import { useAppSelector } from '../../hooks';
 
 
 type mapProps = {
   className: string,
-  offers: Offers,
-  city: City,
 }
 
-export default function Map({ className, offers, city }: mapProps) {
-  const { isCardHovered } = useAppSelector((state) => state);
+export default function Map({ className }: mapProps) {
+  const { isCardHovered, offers, city  } = useAppSelector((state) => state);
 
   const mapRef = useRef(null);
   const map = useMap({ mapRef, city });

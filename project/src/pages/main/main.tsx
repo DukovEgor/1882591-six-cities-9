@@ -38,7 +38,7 @@ export default function Main(): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <Map className={'cities__map'} offers={offers} city={city} />
+              <Map className={'cities__map'} />
             </div>
           </div>
         </div>
