@@ -1,6 +1,6 @@
 import { memo, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { setSortType } from '../../store/actions';
+import { setSortType } from '../../store/app-process';
 import { sortingTypes } from '../../utils/const';
 
 function Sorting() {

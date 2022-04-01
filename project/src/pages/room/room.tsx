@@ -17,7 +17,9 @@ export default function Room(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const { city, offers, offer, reviews, nearby, authorizationStatus } = useAppSelector((state) => state);
+  const { city } = useAppSelector(({APP}) => APP);
+  const { offers, offer, reviews, nearby } = useAppSelector(({DATA}) => DATA);
+  const { authorizationStatus } = useAppSelector(({USER}) => USER);
   useEffect(() => {
     dispatch(fetchHotelAction(offerId));
     dispatch(fetchReviewsAction(offerId));

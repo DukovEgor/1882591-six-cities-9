@@ -12,7 +12,7 @@ export default function SignIn() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { city } = useAppSelector((state) => state);
+  const { city } = useAppSelector(({APP}) => APP);
 
   const { register, reset, handleSubmit, formState: { errors } } = useForm<AuthData>({
     mode: 'onSubmit',

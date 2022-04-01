@@ -11,7 +11,8 @@ import { getFilteredOffers, getSortedOffers } from '../../utils/utils';
 
 function Main(): JSX.Element {
 
-  const { city, offers, sortType } = useAppSelector((state) => state);
+  const { offers } = useAppSelector(({DATA}) => DATA);
+  const { city, sortType } = useAppSelector(({APP}) => APP);
 
   const filteredOffers = getFilteredOffers(city, offers);
   const sortedOffers = getSortedOffers(filteredOffers, sortType);

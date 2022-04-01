@@ -1,6 +1,7 @@
 import { City } from '../types/city';
 import { Offers } from '../types/offer';
 import { IReview } from '../types/review';
+import { UserData } from '../types/user-data';
 
 
 export enum AppRoutes {
@@ -19,6 +20,7 @@ export enum AuthorizationStatus {
 export enum NameSpace {
   data = 'DATA',
   user = 'USER',
+  app = 'APP',
 }
 
 export enum APIRoute {
@@ -93,6 +95,15 @@ export const CITIES: City[] = [
 export const INITIAL_CITY = CITIES[0];
 export const INITIAL_OFFERS: Offers = [];
 export const INITIAL_REVIEWS: IReview[] = [];
+export const INITIAL_USER: UserData = {
+  avatarUrl: '',
+  email: '',
+  id: 0,
+  isPro: false,
+  name: '',
+  token: '',
+};
+export const INITIAL_NEARBY: Offers = [];
 
 export const sortingTypes = [
   {

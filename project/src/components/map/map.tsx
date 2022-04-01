@@ -15,7 +15,7 @@ type mapProps = {
 }
 
 export default function Map({ className, offers, city }: mapProps) {
-  const { isCardHovered } = useAppSelector((state) => state);
+  const { isCardHovered } = useAppSelector(({APP}) => APP);
 
   const mapRef = useRef(null);
   const map = useMap({ mapRef, city });

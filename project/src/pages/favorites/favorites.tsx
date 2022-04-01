@@ -5,7 +5,7 @@ import OffersList from '../../components/offers-list/offers-list';
 import { useAppSelector } from '../../hooks';
 
 export default function Favorites() {
-  const { offers } = useAppSelector((state) => state);
+  const { offers } = useAppSelector(({DATA}) => DATA);
   return (
     <div className="page">
       <Header>

@@ -10,7 +10,7 @@ export default function OptionalRoute({children}: OptionalRouteProps): JSX.Eleme
   const { id } = useParams();
   const offerId = Number(id);
 
-  const { offers } = useAppSelector((state) => state);
+  const { offers } = useAppSelector(({DATA}) => DATA);
 
   return (
     offers.some((index) => index.id === offerId)

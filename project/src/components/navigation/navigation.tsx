@@ -8,7 +8,7 @@ export default function Navigation() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { authorizationStatus, user } = useAppSelector((state) => state);
+  const { authorizationStatus, user } = useAppSelector(({USER}) => USER);
 
   return (
     <nav className="header__nav">

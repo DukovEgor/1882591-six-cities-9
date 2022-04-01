@@ -1,7 +1,7 @@
 import { memo, MutableRefObject, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
-import { changePinIcon } from '../../store/actions';
+import { changePinIcon } from '../../store/app-process';
 import { Offer } from '../../types/offer';
 import { widthPointsPerStep } from '../../utils/const';
 
