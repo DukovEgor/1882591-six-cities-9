@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AppData } from '../types/state';
-import { INITIAL_NEARBY, INITIAL_OFFERS, INITIAL_REVIEWS, NameSpace } from '../utils/const';
+import { INITIAL_NEARBY, INITIAL_OFFER, INITIAL_OFFERS, INITIAL_REVIEWS, NameSpace } from '../utils/const';
 
 const initialState: AppData = {
   offers: INITIAL_OFFERS,
-  offer: INITIAL_OFFERS[0],
+  offer: INITIAL_OFFER,
   reviews: INITIAL_REVIEWS,
   nearby: INITIAL_NEARBY,
   isDataLoaded: false,
@@ -19,8 +19,6 @@ export const appData = createSlice({
       state.isDataLoaded = true;
     },
     loadOffer: (state, action) => {
-      // eslint-disable-next-line no-console
-      console.log(`${action.payload  }from Reducer`);
       state.offer = action.payload;
     },
     loadReviews: (state, action) => {

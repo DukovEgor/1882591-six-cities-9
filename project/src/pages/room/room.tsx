@@ -12,11 +12,6 @@ import { fetchHotelAction, fetchNearbyAction, fetchReviewsAction } from '../../s
 import { AuthorizationStatus } from '../../utils/const';
 
 export default function Room(): JSX.Element {
-  const { city } = useAppSelector(({ APP }) => APP);
-  const { offers, offer, reviews, nearby } = useAppSelector(({ DATA }) => DATA);
-  // eslint-disable-next-line no-console
-  console.log(offer);
-  const { authorizationStatus } = useAppSelector(({ USER }) => USER);
 
   const { id } = useParams();
   const offerId = Number(id);
@@ -24,12 +19,14 @@ export default function Room(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log('useEffect');
     dispatch(fetchHotelAction(offerId));
     dispatch(fetchReviewsAction(offerId));
     dispatch(fetchNearbyAction(offerId));
   }, [dispatch, offerId]);
+
+  const { city } = useAppSelector(({ APP }) => APP);
+  const { offers, offer, reviews, nearby } = useAppSelector(({ DATA }) => DATA);
+  const { authorizationStatus } = useAppSelector(({ USER }) => USER);
 
   const { images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods, host, description } = offer;
   const { avatarUrl, name, isPro } = host;

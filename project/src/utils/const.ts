@@ -1,5 +1,5 @@
 import { City } from '../types/city';
-import { Offers } from '../types/offer';
+import { Offer, Offers } from '../types/offer';
 import { IReview } from '../types/review';
 import { UserData } from '../types/user-data';
 
@@ -94,6 +94,40 @@ export const CITIES: City[] = [
 
 export const INITIAL_CITY = CITIES[0];
 export const INITIAL_OFFERS: Offers = [];
+export const INITIAL_OFFER: Offer = {
+  bedrooms: 0,
+  city: {
+    location: {
+      latitude: 0,
+      longitude: 0,
+      zoom: 0,
+    },
+    name: '',
+  },
+  description: '',
+  goods: [],
+  host: {
+    avatarUrl: '',
+    id: 0,
+    isPro: false,
+    name: '',
+  },
+  id: 0,
+  images: [],
+  isFavorite: false,
+  isPremium: false,
+  location: {
+    latitude: 0,
+    longitude: 0,
+    zoom: 0,
+  },
+  maxAdults: 0,
+  previewImage: '',
+  price: 0,
+  rating: 0,
+  title: '',
+  type: '',
+};
 export const INITIAL_REVIEWS: IReview[] = [];
 export const INITIAL_USER: UserData = {
   avatarUrl: '',
