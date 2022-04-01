@@ -16,6 +16,11 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum NameSpace {
+  data = 'DATA',
+  user = 'USER',
+}
+
 export enum APIRoute {
   Hotels = '/hotels',
   Login = '/login',

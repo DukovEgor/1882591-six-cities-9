@@ -3,8 +3,8 @@ import { City } from '../types/city';
 import { Offer, Offers } from '../types/offer';
 import { IReview } from '../types/review';
 import { UserData } from '../types/user-data';
-import { AuthorizationStatus, INITIAL_CITY, INITIAL_OFFERS, INITIAL_REVIEWS } from '../utils/const';
-import { changePinIcon, loadNearby, loadNewReview, loadOffer, loadOffers, loadReviews, requireAuthorization, setCity, setSortType, setUserData } from './actions';
+import { INITIAL_CITY, INITIAL_OFFERS, INITIAL_REVIEWS } from '../utils/const';
+import { changePinIcon, loadNearby, loadNewReview, loadOffer, loadOffers, loadReviews, setCity, setSortType, setUserData } from './actions';
 
 interface initialStateProps {
   city: City,
@@ -13,7 +13,6 @@ interface initialStateProps {
   sortType: string,
   isCardHovered: { isHovered: boolean, id: number },
   isDataLoaded: boolean,
-  authorizationStatus: AuthorizationStatus,
   user: UserData,
   reviews: IReview[],
   nearby: Offers,
@@ -24,7 +23,6 @@ const initialState: initialStateProps = {
   sortType: 'popular',
   isCardHovered: { isHovered: false, id: 0 },
   isDataLoaded: false,
-  authorizationStatus: AuthorizationStatus.Unknown,
   user: {
     avatarUrl: '',
     email: '',
@@ -103,9 +101,6 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(changePinIcon, (state, action) => {
       state.isCardHovered = action.payload;
-    })
-    .addCase(requireAuthorization, (state, action) => {
-      state.authorizationStatus = action.payload;
     });
 });
 
