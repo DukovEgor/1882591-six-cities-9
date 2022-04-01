@@ -21,7 +21,7 @@ function Card({ index, className }: cardProps): JSX.Element {
 
   useEffect(() => {
     const current = cardRef.current;
-    current?.addEventListener('mouseover', () => {
+    current?.addEventListener('mouseenter', () => {
       dispatch(changePinIcon({ isHovered: true, id }));
     });
     current?.addEventListener('mouseleave', () => {
@@ -29,7 +29,7 @@ function Card({ index, className }: cardProps): JSX.Element {
     });
 
     return () => {
-      current?.removeEventListener('mouseover', () => {
+      current?.removeEventListener('mouseenter', () => {
         dispatch(changePinIcon({ isHovered: true, id }));
       });
       current?.removeEventListener('mouseleave', () => {

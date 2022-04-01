@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import useMap from '../../hooks/useMap';
 import { ANCHOR_SIZES, ICONS_SIZES } from '../../utils/const';
 import leaflet from 'leaflet';
@@ -14,8 +14,8 @@ type mapProps = {
   city: City,
 }
 
-export default function Map({ className, offers, city }: mapProps) {
-  const { isCardHovered } = useAppSelector(({APP}) => APP);
+function Map({ className, offers, city }: mapProps) {
+  const { isCardHovered } = useAppSelector(({ APP }) => APP);
 
   const mapRef = useRef(null);
   const map = useMap({ mapRef, city });
@@ -32,21 +32,34 @@ export default function Map({ className, offers, city }: mapProps) {
     iconAnchor: ANCHOR_SIZES,
   });
 
+
   useEffect(() => {
+
+    const markers: leaflet.Marker[] = [];
+
     if (map) {
       map.flyTo([city.location.latitude, city.location.longitude], city.location.zoom);
+
       offers.forEach((offer) => {
         const { location: { latitude, longitude } } = offer;
-        leaflet
-          .marker({
+
+        const marker = leaflet.marker(
+          {
             lat: latitude,
             lng: longitude,
-          }, {
+          },
+          {
             icon: isCardHovered.isHovered && offer.id === isCardHovered.id ? activeCustomIcon : defaultCustomIcon,
-          })
-          .addTo(map);
+          });
+
+        marker.addTo(map);
+        markers.push(marker);
       });
     }
+
+    return () => {
+      markers.forEach((index) => index.remove());
+    };
   }, [activeCustomIcon, city.location.latitude, city.location.longitude, city.location.zoom, defaultCustomIcon, isCardHovered.id, isCardHovered.isHovered, map, offers]);
 
   return (
@@ -56,3 +69,5 @@ export default function Map({ className, offers, city }: mapProps) {
     />
   );
 }
+
+export default memo(Map, (prevProps, nextProps) => prevProps.city === nextProps.city);

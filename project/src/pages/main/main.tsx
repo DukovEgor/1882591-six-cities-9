@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import Header from '../../components/header/header';
 import LocationList from '../../components/location-list/locations-list';
 import Map from '../../components/map/map';
