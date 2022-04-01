@@ -11,6 +11,7 @@ type cardProps = {
 }
 
 function Card({ index, className }: cardProps): JSX.Element {
+
   const { title, price, type, id, isPremium, isFavorite, rating, previewImage } = index;
   const dispatch = useAppDispatch();
 
@@ -18,12 +19,8 @@ function Card({ index, className }: cardProps): JSX.Element {
 
   const cardRef: MutableRefObject<HTMLElement | null> = useRef(null);
 
-
   useEffect(() => {
     const current = cardRef.current;
-    if (current?.tagName !== 'ARTICLE') {
-      return;
-    }
     current?.addEventListener('mouseover', () => {
       dispatch(changePinIcon({ isHovered: true, id }));
     });
@@ -40,7 +37,6 @@ function Card({ index, className }: cardProps): JSX.Element {
       });
     };
   }, [dispatch, id]);
-
 
   return (
     <article ref={cardRef} className={`${className} place-card`}>
@@ -79,6 +75,4 @@ function Card({ index, className }: cardProps): JSX.Element {
 }
 
 export default memo(Card, (prevProps, nextProps) =>
-  prevProps.index === nextProps.index
-  &&
-  prevProps.className === nextProps.className);
+  prevProps.index === nextProps.index);

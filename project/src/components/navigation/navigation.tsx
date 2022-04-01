@@ -1,9 +1,10 @@
+import { memo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
 import { AppRoutes, AuthorizationStatus } from '../../utils/const';
 
-export default function Navigation() {
+function Navigation() {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -43,3 +44,5 @@ export default function Navigation() {
     </nav >
   );
 }
+
+export default memo(Navigation);

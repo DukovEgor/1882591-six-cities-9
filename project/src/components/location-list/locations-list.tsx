@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import { memo, MouseEvent } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { setCity } from '../../store/app-process';
 import { City } from '../../types/city';
@@ -8,7 +8,7 @@ type LocationListProps = {
   city: City,
 }
 
-export default function LocationList({ city }: LocationListProps) {
+function LocationList({ city }: LocationListProps) {
 
   const dispatch = useAppDispatch();
 
@@ -32,3 +32,5 @@ export default function LocationList({ city }: LocationListProps) {
     </ul >
   );
 }
+
+export default memo(LocationList, (prevProps, nextProps) => prevProps.city === nextProps.city);

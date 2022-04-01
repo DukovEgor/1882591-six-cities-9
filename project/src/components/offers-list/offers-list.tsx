@@ -22,7 +22,4 @@ function OffersList({ className, offers }: OffersListProps) {
 }
 
 export default memo(OffersList, (prevProps, nextProps) =>
-  prevProps.offers === nextProps.offers
-   &&
-   prevProps.className === nextProps.className,
-);
+  prevProps.offers === nextProps.offers);
