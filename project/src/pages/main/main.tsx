@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import Header from '../../components/header/header';
 import LocationList from '../../components/location-list/locations-list';
 import Map from '../../components/map/map';
@@ -8,7 +9,7 @@ import { useAppSelector } from '../../hooks';
 import { getFilteredOffers, getSortedOffers } from '../../utils/utils';
 
 
-export default function Main(): JSX.Element {
+function Main(): JSX.Element {
 
   const { city, offers, sortType } = useAppSelector((state) => state);
 
@@ -46,3 +47,4 @@ export default function Main(): JSX.Element {
     </div>
   );
 }
+export default memo(Main);

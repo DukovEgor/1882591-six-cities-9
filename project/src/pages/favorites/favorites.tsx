@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom';
-import Card from '../../components/card/card';
 import Header from '../../components/header/header';
 import Navigation from '../../components/navigation/navigation';
+import OffersList from '../../components/offers-list/offers-list';
 import { useAppSelector } from '../../hooks';
 
-
 export default function Favorites() {
-  const {offers} = useAppSelector((state) => state);
+  const { offers } = useAppSelector((state) => state);
   return (
     <div className="page">
       <Header>
@@ -26,12 +25,7 @@ export default function Favorites() {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  {offers.map((index) => (
-                    <Card key={index.id}
-                      className={'favorites__card'}
-                      {...index}
-                    />
-                  ))}
+                  <OffersList offers={offers} className={'favorites__card'} />
                 </div>
               </li>
             </ul>

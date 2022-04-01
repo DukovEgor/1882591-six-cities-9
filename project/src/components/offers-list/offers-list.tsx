@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Offers } from '../../types/offer';
 import Card from '../card/card';
 
@@ -6,7 +7,7 @@ type OffersListProps = {
   className: string,
 }
 
-export default function OffersList({ className, offers }: OffersListProps) {
+function OffersList({ className, offers }: OffersListProps) {
 
   return (
     <>
@@ -14,8 +15,14 @@ export default function OffersList({ className, offers }: OffersListProps) {
         <Card
           className={className}
           key={index.id}
-          {...index}
+          index={index}
         />))}
     </>
   );
 }
+
+export default memo(OffersList, (prevProps, nextProps) =>
+  prevProps.offers === nextProps.offers
+   &&
+   prevProps.className === nextProps.className,
+);

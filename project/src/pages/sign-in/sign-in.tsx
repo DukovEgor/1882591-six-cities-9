@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthData } from '../../types/auth-data';
 import { loginAction } from '../../store/api-actions';
 import { toast } from 'react-toastify';
+import { useEffect } from 'react';
 
 export default function SignIn() {
 
@@ -18,14 +19,16 @@ export default function SignIn() {
   });
 
   const onSubmit: SubmitHandler<AuthData> = (data) => {
-
+    //useCallback
     dispatch(loginAction(data));
     reset();
     navigate('/');
   };
+  useEffect(() => {
+    errors.login && toast.error(errors.login?.message);
+    errors.password && toast.error(errors.password?.message);
+  }, [errors.login, errors.password]);
 
-  errors.login && toast.error(errors.login?.message);
-  errors.password && toast.error(errors.password?.message);
 
   return (
     <div className="page page--gray page--login">

@@ -1,32 +1,49 @@
+import { memo, MutableRefObject, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { changePinIcon } from '../../store/actions';
+import { Offer } from '../../types/offer';
 import { widthPointsPerStep } from '../../utils/const';
 
 type cardProps = {
   className: string,
-  title: string,
-  price: number,
-  type: string,
-  id: number,
-  isPremium: boolean,
-  isFavorite: boolean,
-  rating: number,
-  previewImage: string,
+  index: Offer,
 }
 
-export default function Card({ className, title, price, type, id, isPremium, isFavorite, rating, previewImage }: cardProps): JSX.Element {
-
+function Card({ index, className }: cardProps): JSX.Element {
+  const { title, price, type, id, isPremium, isFavorite, rating, previewImage } = index;
   const dispatch = useAppDispatch();
 
   const ratingWidth = rating * widthPointsPerStep;
 
+  const cardRef: MutableRefObject<HTMLElement | null> = useRef(null);
+
+
+  useEffect(() => {
+    const current = cardRef.current;
+    if (current?.tagName !== 'ARTICLE') {
+      return;
+    }
+    current?.addEventListener('mouseover', () => {
+      dispatch(changePinIcon({ isHovered: true, id }));
+    });
+    current?.addEventListener('mouseleave', () => {
+      dispatch(changePinIcon({ isHovered: false, id }));
+    });
+
+    return () => {
+      current?.removeEventListener('mouseover', () => {
+        dispatch(changePinIcon({ isHovered: true, id }));
+      });
+      current?.removeEventListener('mouseleave', () => {
+        dispatch(changePinIcon({ isHovered: false, id }));
+      });
+    };
+  }, [dispatch, id]);
+
+
   return (
-    <article
-      className={`${className} place-card`}
-      onMouseEnter={() => dispatch(changePinIcon({isHovered: true, id: id}))}
-      onMouseLeave={() => dispatch(changePinIcon({isHovered: false, id: id}))}
-    >
+    <article ref={cardRef} className={`${className} place-card`}>
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className={`${className === 'favorites__card' ? 'favorites__image-wrapper' : 'cities__image-wrapper'} place-card__image-wrapper`}>
         <Link to={`/room/${id}`}>
@@ -60,3 +77,8 @@ export default function Card({ className, title, price, type, id, isPremium, isF
     </article >
   );
 }
+
+export default memo(Card, (prevProps, nextProps) =>
+  prevProps.index === nextProps.index
+  &&
+  prevProps.className === nextProps.className);

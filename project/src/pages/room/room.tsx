@@ -18,8 +18,6 @@ export default function Room(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const { city, offers, offer, reviews, nearby, authorizationStatus } = useAppSelector((state) => state);
-  // eslint-disable-next-line no-console
-  console.log(reviews);
   useEffect(() => {
     dispatch(fetchHotelAction(offerId));
     dispatch(fetchReviewsAction(offerId));
