@@ -12,20 +12,24 @@ import { fetchHotelAction, fetchNearbyAction, fetchReviewsAction } from '../../s
 import { AuthorizationStatus } from '../../utils/const';
 
 export default function Room(): JSX.Element {
+  const { city } = useAppSelector(({ APP }) => APP);
+  const { offers, offer, reviews, nearby } = useAppSelector(({ DATA }) => DATA);
+  // eslint-disable-next-line no-console
+  console.log(offer);
+  const { authorizationStatus } = useAppSelector(({ USER }) => USER);
+
   const { id } = useParams();
   const offerId = Number(id);
 
   const dispatch = useAppDispatch();
 
-  const { city } = useAppSelector(({APP}) => APP);
-  const { offers, offer, reviews, nearby } = useAppSelector(({DATA}) => DATA);
-  const { authorizationStatus } = useAppSelector(({USER}) => USER);
   useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log('useEffect');
     dispatch(fetchHotelAction(offerId));
     dispatch(fetchReviewsAction(offerId));
     dispatch(fetchNearbyAction(offerId));
   }, [dispatch, offerId]);
-
 
   const { images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods, host, description } = offer;
   const { avatarUrl, name, isPro } = host;
@@ -123,13 +127,13 @@ export default function Room(): JSX.Element {
               </ReviewsList>
             </div>
           </div>
-          <Map className={'property__map'} offers={offers} city={city} />
+          <Map className={'property__map'} offers={offers} city={city} isHovered={{ isCardHovered: false, id: 0 }} />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersList offers={nearby} className={'near-places__card'} />
+              <OffersList offers={nearby} className={'near-places__card'} handleHoverEffect={() => ''} />
             </div>
           </section>
         </div>

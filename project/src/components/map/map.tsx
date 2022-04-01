@@ -5,17 +5,18 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Offers } from '../../types/offer';
 import { City } from '../../types/city';
-import { useAppSelector } from '../../hooks';
+import { isHovered as hoveredInfo } from '../../types/isHovered';
 
 
 type mapProps = {
   className: string,
   offers: Offers,
   city: City,
+  isHovered: hoveredInfo,
 }
 
-function Map({ className, offers, city }: mapProps) {
-  const { isCardHovered } = useAppSelector(({ APP }) => APP);
+function Map({ className, offers, city, isHovered }: mapProps) {
+
 
   const mapRef = useRef(null);
   const map = useMap({ mapRef, city });
@@ -32,6 +33,7 @@ function Map({ className, offers, city }: mapProps) {
     iconAnchor: ANCHOR_SIZES,
   });
 
+  const { isCardHovered, id } = isHovered;
 
   useEffect(() => {
 
@@ -49,7 +51,7 @@ function Map({ className, offers, city }: mapProps) {
             lng: longitude,
           },
           {
-            icon: isCardHovered.isHovered && offer.id === isCardHovered.id ? activeCustomIcon : defaultCustomIcon,
+            icon: isCardHovered && offer.id === id ? activeCustomIcon : defaultCustomIcon,
           });
 
         marker.addTo(map);
@@ -60,7 +62,7 @@ function Map({ className, offers, city }: mapProps) {
     return () => {
       markers.forEach((index) => index.remove());
     };
-  }, [activeCustomIcon, city.location.latitude, city.location.longitude, city.location.zoom, defaultCustomIcon, isCardHovered.id, isCardHovered.isHovered, map, offers]);
+  }, [activeCustomIcon, city.location.latitude, city.location.longitude, city.location.zoom, defaultCustomIcon, id, isCardHovered, isHovered, map, offers]);
 
   return (
     <section
@@ -70,4 +72,4 @@ function Map({ className, offers, city }: mapProps) {
   );
 }
 
-export default memo(Map, (prevProps, nextProps) => prevProps.city === nextProps.city);
+export default memo(Map, (prevProps, nextProps) => prevProps.city === nextProps.city && prevProps.isHovered === nextProps.isHovered);

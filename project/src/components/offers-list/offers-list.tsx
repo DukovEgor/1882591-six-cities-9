@@ -1,13 +1,15 @@
 import { memo } from 'react';
 import { Offers } from '../../types/offer';
 import Card from '../card/card';
+import { handleHoverEffect as callbackType } from '../../types/isHovered';
 
 type OffersListProps = {
   offers: Offers,
   className: string,
+  handleHoverEffect: callbackType,
 }
 
-function OffersList({ className, offers }: OffersListProps) {
+function OffersList({ className, offers, handleHoverEffect }: OffersListProps) {
 
   return (
     <>
@@ -15,7 +17,7 @@ function OffersList({ className, offers }: OffersListProps) {
         <Card
           className={className}
           key={index.id}
-          index={index}
+          index={index} handleHoverEffect={handleHoverEffect}
         />))}
     </>
   );

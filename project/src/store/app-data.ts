@@ -19,19 +19,18 @@ export const appData = createSlice({
       state.isDataLoaded = true;
     },
     loadOffer: (state, action) => {
+      // eslint-disable-next-line no-console
+      console.log(`${action.payload  }from Reducer`);
       state.offer = action.payload;
-      state.isDataLoaded = true;
     },
     loadReviews: (state, action) => {
       state.reviews = action.payload;
-      state.isDataLoaded = true;
     },
     uploadReview: (state, action) => {
       state.reviews = action.payload;
     },
     loadNearby: (state, action) => {
       state.nearby = action.payload;
-      state.isDataLoaded = true;
     },
   },
 });

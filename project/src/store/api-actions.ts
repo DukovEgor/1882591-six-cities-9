@@ -28,9 +28,13 @@ export const fetchHotelsAction = createAsyncThunk(
 export const fetchHotelAction = createAsyncThunk(
   'data/fetchHotel',
   async (id: number) => {
+    // eslint-disable-next-line no-console
+    console.log('fetch');
     try {
 
       const { data } = await api.get<Offer>(`${APIRoute.Hotels}/${id}`);
+      // eslint-disable-next-line no-console
+      console.log(`${data  }from fetch`);
       store.dispatch(loadOffer(data));
 
     } catch (error) {
@@ -72,10 +76,10 @@ export const fetchReviewsAction = createAsyncThunk(
 
 export const fetchNewReviewAction = createAsyncThunk(
   'data/fetchNewReview',
-  async ({id, comment, rating}: {id: number, comment: string, rating: number}) => {
+  async ({ id, comment, rating }: { id: number, comment: string, rating: number }) => {
     try {
 
-      const { data } = await api.post<IReview[]>(`${APIRoute.Comments}/${id}`, {comment, rating});
+      const { data } = await api.post<IReview[]>(`${APIRoute.Comments}/${id}`, { comment, rating });
       store.dispatch(uploadReview(data));
 
     } catch (error) {

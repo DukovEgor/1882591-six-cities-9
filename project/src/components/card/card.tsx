@@ -1,45 +1,27 @@
-import { memo, MutableRefObject, useEffect, useRef } from 'react';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks';
-import { changePinIcon } from '../../store/app-process';
 import { Offer } from '../../types/offer';
 import { widthPointsPerStep } from '../../utils/const';
+import { handleHoverEffect as callbackType } from '../../types/isHovered';
 
 type cardProps = {
   className: string,
   index: Offer,
+  handleHoverEffect: callbackType,
 }
 
-function Card({ index, className }: cardProps): JSX.Element {
+function Card({ index, className, handleHoverEffect }: cardProps): JSX.Element {
 
   const { title, price, type, id, isPremium, isFavorite, rating, previewImage } = index;
-  const dispatch = useAppDispatch();
 
   const ratingWidth = rating * widthPointsPerStep;
 
-  const cardRef: MutableRefObject<HTMLElement | null> = useRef(null);
-
-  useEffect(() => {
-    const current = cardRef.current;
-    current?.addEventListener('mouseenter', () => {
-      dispatch(changePinIcon({ isHovered: true, id }));
-    });
-    current?.addEventListener('mouseleave', () => {
-      dispatch(changePinIcon({ isHovered: false, id }));
-    });
-
-    return () => {
-      current?.removeEventListener('mouseenter', () => {
-        dispatch(changePinIcon({ isHovered: true, id }));
-      });
-      current?.removeEventListener('mouseleave', () => {
-        dispatch(changePinIcon({ isHovered: false, id }));
-      });
-    };
-  }, [dispatch, id]);
-
   return (
-    <article ref={cardRef} className={`${className} place-card`}>
+    <article
+      className={`${className} place-card`}
+      onMouseEnter={() => handleHoverEffect({isCardHovered: true, id})}
+      onMouseLeave={() => handleHoverEffect({isCardHovered: true, id})}
+    >
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className={`${className === 'favorites__card' ? 'favorites__image-wrapper' : 'cities__image-wrapper'} place-card__image-wrapper`}>
         <Link to={`/room/${id}`}>

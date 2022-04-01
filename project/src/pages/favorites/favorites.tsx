@@ -25,7 +25,7 @@ export default function Favorites() {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <OffersList offers={offers} className={'favorites__card'} />
+                  <OffersList offers={offers} className={'favorites__card'} handleHoverEffect={() => ''} />
                 </div>
               </li>
             </ul>
