@@ -1,4 +1,4 @@
-import { memo, MouseEvent } from 'react';
+import { memo } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { setCity } from '../../store/app-process';
 import { City } from '../../types/city';
@@ -12,10 +12,6 @@ function LocationList({ city }: LocationListProps) {
 
   const dispatch = useAppDispatch();
 
-  const handleLocationClick = (evt: MouseEvent<HTMLAnchorElement>, name: City) => {
-    evt.preventDefault();
-    dispatch(setCity(name));
-  };
 
   return (
     <ul className="locations__list tabs__list">
@@ -24,7 +20,10 @@ function LocationList({ city }: LocationListProps) {
           <a
             className={`locations__item-link tabs__item ${idx.name === city.name ? 'tabs__item--active' : ''}`}
             href="/"
-            onClick={(evt) => handleLocationClick(evt, idx)}
+            onClick={(evt) => {
+              evt.preventDefault();
+              dispatch(setCity(idx));
+            }}
           >
             <span>{idx.name}</span>
           </a>
