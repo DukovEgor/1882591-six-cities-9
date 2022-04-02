@@ -91,7 +91,10 @@ export const addToFavorite = createAsyncThunk(
   async ({ id, status }: { id: number, status: boolean }) => {
     try {
 
-      await api.post(`${APIRoute.Favorite}/${id}/${Number(!status)}`);
+      const { DATA } = store.getState();
+
+      const { data } = await api.post<Offer>(`${APIRoute.Favorite}/${id}/${Number(!status)}`);
+      store.dispatch(loadFavorites(DATA.favorites.filter((offer) => offer.id !== data.id)));
 
     } catch (error) {
 
