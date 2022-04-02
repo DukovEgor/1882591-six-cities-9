@@ -28,6 +28,7 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Comments = '/comments',
+  Favorite = '/favorite',
 }
 
 export enum HTTP_CODE {
@@ -138,6 +139,7 @@ export const INITIAL_USER: UserData = {
   token: '',
 };
 export const INITIAL_NEARBY: Offers = [];
+export const INITIAL_FAVORITES: Offers = [];
 
 export const sortingTypes = [
   {

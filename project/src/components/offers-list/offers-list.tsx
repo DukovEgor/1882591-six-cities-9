@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { Offers } from '../../types/offer';
 import Card from '../card/card';
 import { handleHoverEffect as callbackType } from '../../types/isHovered';
@@ -9,7 +8,7 @@ type OffersListProps = {
   handleHoverEffect: callbackType,
 }
 
-function OffersList({ className, offers, handleHoverEffect }: OffersListProps) {
+export default function OffersList({ className, offers, handleHoverEffect }: OffersListProps) {
 
   return (
     <>
@@ -23,5 +22,3 @@ function OffersList({ className, offers, handleHoverEffect }: OffersListProps) {
   );
 }
 
-export default memo(OffersList, (prevProps, nextProps) =>
-  prevProps.offers === nextProps.offers);

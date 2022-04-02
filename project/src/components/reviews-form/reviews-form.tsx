@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { useAppDispatch } from '../../hooks';
@@ -8,15 +9,18 @@ export default function ReviewsForm({ id }: { id: number }): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const { register, reset, handleSubmit, formState: { errors } } = useForm<INewReview>();
+  const { register, reset, handleSubmit, formState: { errors } } = useForm<INewReview>({ mode: 'all' });
 
   const onSubmit: SubmitHandler<INewReview> = (data) => {
     dispatch(fetchNewReviewAction({ ...data, id }));
     reset();
   };
 
-  errors.comment && toast.error(errors.comment?.message);
-  errors.rating && toast.error(errors.rating?.message);
+  useEffect(() => {
+    errors.comment && toast.error(errors.comment?.message);
+    errors.rating && toast.error(errors.rating?.message);
+  });
+
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit(onSubmit)}>
@@ -102,7 +106,7 @@ export default function ReviewsForm({ id }: { id: number }): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit">Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={(errors.rating && true) || (errors.comment && true)}>Submit</button>
       </div>
     </form>
   );

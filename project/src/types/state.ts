@@ -15,6 +15,7 @@ export type AppData = {
   offer: Offer,
   reviews: IReview[],
   nearby: Offers,
+  favorites: Offers,
   isDataLoaded: boolean,
 };
 

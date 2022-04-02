@@ -7,7 +7,7 @@ import { Offer, Offers } from '../types/offer';
 import { IReview } from '../types/review';
 import { UserData } from '../types/user-data';
 import { APIRoute, AuthorizationStatus } from '../utils/const';
-import { loadOffers, loadOffer, loadNearby, loadReviews, uploadReview } from './app-data';
+import { loadOffers, loadOffer, loadNearby, loadReviews, uploadReview, loadFavorites } from './app-data';
 import { requireAuthorization, setUserData } from './user-process';
 
 export const fetchHotelsAction = createAsyncThunk(
@@ -78,6 +78,38 @@ export const fetchNewReviewAction = createAsyncThunk(
 
       const { data } = await api.post<IReview[]>(`${APIRoute.Comments}/${id}`, { comment, rating });
       store.dispatch(uploadReview(data));
+
+    } catch (error) {
+
+      errorHandle(error);
+    }
+  },
+);
+
+export const addToFavorite = createAsyncThunk(
+  'data/addToFavorite',
+  async ({ id, status }: { id: number, status: boolean }) => {
+    try {
+
+      const { DATA } = store.getState();
+
+      const { data } = await api.post<Offer>(`${APIRoute.Favorite}/${id}/${Number(!status)}`);
+      store.dispatch(loadFavorites(DATA.favorites.filter((offer) => offer.id !== data.id)));
+
+    } catch (error) {
+
+      errorHandle(error);
+    }
+  },
+);
+
+export const fetchFavorites = createAsyncThunk(
+  'data/fetchFavorites',
+  async () => {
+    try {
+
+      const { data } = await api.get<Offers>(APIRoute.Favorite);
+      store.dispatch(loadFavorites(data));
 
     } catch (error) {
 
