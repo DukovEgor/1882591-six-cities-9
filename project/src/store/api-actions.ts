@@ -1,10 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { UseFormReset } from 'react-hook-form';
 import { api, store } from '.';
 import { errorHandle } from '../services/error-handle';
 import { dropToken, saveToken } from '../services/token';
 import { AuthData } from '../types/auth-data';
 import { Offer, Offers } from '../types/offer';
-import { IReview } from '../types/review';
+import { INewReview, IReview } from '../types/review';
 import { UserData } from '../types/user-data';
 import { APIRoute, AuthorizationStatus } from '../utils/const';
 import { loadOffers, loadOffer, loadNearby, loadReviews, uploadReview, loadFavorites } from './app-data';
@@ -73,15 +74,20 @@ export const fetchReviewsAction = createAsyncThunk(
 
 export const fetchNewReviewAction = createAsyncThunk(
   'data/fetchNewReview',
-  async ({ id, comment, rating }: { id: number, comment: string, rating: number }) => {
+  async ({ id, comment, rating, reset, setIsDisabled }: { id: number, comment: string, rating: number, reset: UseFormReset<INewReview>, setIsDisabled: React.Dispatch<React.SetStateAction<boolean>> }) => {
     try {
 
       const { data } = await api.post<IReview[]>(`${APIRoute.Comments}/${id}`, { comment, rating });
       store.dispatch(uploadReview(data));
+      reset();
 
     } catch (error) {
 
       errorHandle(error);
+
+    } finally {
+
+      setIsDisabled(false);
     }
   },
 );
