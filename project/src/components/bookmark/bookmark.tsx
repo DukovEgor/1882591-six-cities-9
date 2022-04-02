@@ -20,11 +20,11 @@ export default function Bookmark({ isFavorite, className, hotelId }: bookmarkPro
   return (
     <button className={`${className} ${favoriteStatus && 'place-card__bookmark-button--active'} button`} type="button" onClick={() => {
       if (authorizationStatus !== AuthorizationStatus.Auth) {navigate('/sign-in');}
+      dispatch(addToFavorite({ id: hotelId, status: favoriteStatus }));
       setFavoriteStatus((prev) => !prev);
-      dispatch(addToFavorite({ id: hotelId, status: Number(isFavorite) }));
     }}
     >
-      <svg className="place-card__bookmark-icon" width={18} height={19}>
+      <svg className="place-card__bookmark-icon" width='100%' height='100%'>
         <use xlinkHref="#icon-bookmark" />
       </svg>
       <span className="visually-hidden">To bookmarks</span>

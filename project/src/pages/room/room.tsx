@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Bookmark from '../../components/bookmark/bookmark';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import Navigation from '../../components/navigation/navigation';
@@ -53,12 +54,7 @@ export default function Room(): JSX.Element {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={`property__bookmark-button ${isFavorite && 'place-card__bookmark-button--active'} button`} type="button">
-                  <svg className="property__bookmark-icon" width={31} height={33}>
-                    <use xlinkHref="#icon-bookmark" />
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <Bookmark isFavorite={isFavorite} className={'property__bookmark-button'} hotelId={offerId} />
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">

@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import Header from '../../components/header/header';
 import LocationList from '../../components/location-list/locations-list';
 import Map from '../../components/map/map';
@@ -10,7 +10,7 @@ import {  isHovered as hoveredInfo} from '../../types/isHovered';
 import { getFilteredOffers, getSortedOffers } from '../../utils/utils';
 
 
-function Main(): JSX.Element {
+export default function Main(): JSX.Element {
 
   const { offers } = useAppSelector(({DATA}) => DATA);
   const { city, sortType } = useAppSelector(({APP}) => APP);
@@ -52,4 +52,3 @@ function Main(): JSX.Element {
   );
 }
 
-export default memo(Main);

@@ -53,4 +53,4 @@ function Card({ index, className, handleHoverEffect }: cardProps): JSX.Element {
 }
 
 export default memo(Card, (prevProps, nextProps) =>
-  prevProps.index === nextProps.index);
+  prevProps.index.isFavorite === nextProps.index.isFavorite);

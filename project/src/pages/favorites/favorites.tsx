@@ -1,11 +1,35 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import FavoritesListItem from '../../components/favorites-list-item/favorites-list-item';
 import Header from '../../components/header/header';
 import Navigation from '../../components/navigation/navigation';
-import OffersList from '../../components/offers-list/offers-list';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchFavorites } from '../../store/api-actions';
+import { Offers } from '../../types/offer';
 
 export default function Favorites() {
-  const { offers } = useAppSelector(({DATA}) => DATA);
+
+  const dispatch = useAppDispatch();
+  const { favorites } = useAppSelector(({ DATA }) => DATA);
+
+  useEffect(() => {
+    dispatch(fetchFavorites());
+  }, [dispatch]);
+
+
+  const favoritesByPlace: {
+    [groupName: string]: Offers
+  } = {};
+
+  favorites.forEach((favorite) => {
+    if (favorite.city.name in favoritesByPlace) {
+      favoritesByPlace[favorite.city.name].push(favorite);
+    } else {
+      favoritesByPlace[favorite.city.name] = [favorite];
+    }
+  });
+
+
   return (
     <div className="page">
       <Header>
@@ -16,18 +40,7 @@ export default function Favorites() {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="/">
-                      <span>Amsterdam</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  <OffersList offers={offers} className={'favorites__card'} handleHoverEffect={() => ''} />
-                </div>
-              </li>
+              {Object.keys(favoritesByPlace).map((place) => <FavoritesListItem key={place} offers={favoritesByPlace[place]} city={place} />)}
             </ul>
           </section>
         </div>
