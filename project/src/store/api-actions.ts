@@ -86,6 +86,20 @@ export const fetchNewReviewAction = createAsyncThunk(
   },
 );
 
+export const addToFavorite = createAsyncThunk(
+  'data/addToFavorite',
+  async ({id, status}: {id: number, status: number}) => {
+    try {
+
+      await api.post(`${APIRoute.Favorite}/${id}/${status}`);
+
+    } catch (error) {
+
+      errorHandle(error);
+    }
+  },
+);
+
 export const checkAuthAction = createAsyncThunk(
   'user/checkAuth',
   async () => {
