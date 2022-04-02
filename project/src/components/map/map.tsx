@@ -17,9 +17,8 @@ type mapProps = {
 
 function Map({ className, offers, city, isHovered }: mapProps) {
 
-
   const mapRef = useRef(null);
-  const map = useMap({ mapRef, city });
+  const map = useMap({ mapRef, city, offers });
 
   const defaultCustomIcon = leaflet.icon({
     iconUrl: 'img/pin.svg',

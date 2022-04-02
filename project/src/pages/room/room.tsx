@@ -23,7 +23,7 @@ export default function Room(): JSX.Element {
   }, [dispatch, offerId]);
 
   const { city } = useAppSelector(({ APP }) => APP);
-  const { offers, offer, reviews, nearby } = useAppSelector(({ DATA }) => DATA);
+  const { offer, reviews, nearby } = useAppSelector(({ DATA }) => DATA);
   const { authorizationStatus } = useAppSelector(({ USER }) => USER);
 
   const { images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods, host, description } = offer;
@@ -38,7 +38,7 @@ export default function Room(): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {images.map((image) => (
+              {images.slice(0, 6).map((image) => (
                 <div className="property__image-wrapper" key={image}>
                   <img className="property__image" src={image} alt="studio" />
                 </div>))}
@@ -94,7 +94,7 @@ export default function Room(): JSX.Element {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
+                  <div className={`property__avatar-wrapper ${isPro && 'property__avatar-wrapper--pro'} user__avatar-wrapper`}>
                     <img className="property__avatar user__avatar" src={avatarUrl} width={74} height={74} alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
@@ -111,10 +111,10 @@ export default function Room(): JSX.Element {
                   </p>
                 </div>
               </div>
-              <ReviewsList reviews={reviews} authorizationStatus={authorizationStatus} offerId={offerId} />
+              <ReviewsList reviews={reviews.slice().sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date))).slice(0, 10)} authorizationStatus={authorizationStatus} offerId={offerId} />
             </div>
           </div>
-          <Map className={'property__map'} offers={offers} city={city} isHovered={{ isCardHovered: false, id: 0 }} />
+          <Map className={'property__map'} offers={nearby.concat(offer)} city={city} isHovered={{ isCardHovered: true, id: offerId }} />
         </section>
         <div className="container">
           <section className="near-places places">

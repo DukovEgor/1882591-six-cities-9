@@ -35,9 +35,9 @@ export default function Main(): JSX.Element {
         </div>
         <div className="cities">
           <div className="cities__places-container container">
-            {offers
-              ?
-              <>
+            {
+              offers
+                ?
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
                   <b className="places__found">{filteredOffers.length} places to stay in {city.name}</b>
@@ -46,12 +46,12 @@ export default function Main(): JSX.Element {
                     <OffersList offers={sortedOffers} className={'cities__place-card'} handleHoverEffect={setIsHovered} />
                   </div>
                 </section>
-                <div className="cities__right-section">
-                  <Map className={'cities__map'} offers={offers} city={city} isHovered={isHovered} />
-                </div>
-              </>
-              :
-              <MainEmpty city={city.name} />}
+                :
+                <MainEmpty city={city.name} />
+            }
+            <div className="cities__right-section">
+              <Map className={'cities__map'} offers={offers} city={city} isHovered={isHovered} />
+            </div>
           </div>
         </div>
       </main>
