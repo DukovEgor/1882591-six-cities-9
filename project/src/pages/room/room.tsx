@@ -4,12 +4,9 @@ import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import Navigation from '../../components/navigation/navigation';
 import OffersList from '../../components/offers-list/offers-list';
-import Review from '../../components/review/review';
-import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchHotelAction, fetchNearbyAction, fetchReviewsAction } from '../../store/api-actions';
-import { AuthorizationStatus } from '../../utils/const';
 
 export default function Room(): JSX.Element {
 
@@ -118,10 +115,7 @@ export default function Room(): JSX.Element {
                   </p>
                 </div>
               </div>
-              <ReviewsList reviewsCount={reviews.length} >
-                {reviews.map((index) => <Review key={index.id} {...index} />)}
-                {authorizationStatus === AuthorizationStatus.Auth && <ReviewsForm id={offerId} />}
-              </ReviewsList>
+              <ReviewsList reviews={reviews} authorizationStatus={authorizationStatus} offerId={offerId} />
             </div>
           </div>
           <Map className={'property__map'} offers={offers} city={city} isHovered={{ isCardHovered: false, id: 0 }} />
