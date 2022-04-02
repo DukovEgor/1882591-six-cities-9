@@ -1,3 +1,4 @@
+import { memo, useState } from 'react';
 import Header from '../../components/header/header';
 import LocationList from '../../components/location-list/locations-list';
 import Map from '../../components/map/map';
@@ -5,15 +6,19 @@ import Navigation from '../../components/navigation/navigation';
 import OffersList from '../../components/offers-list/offers-list';
 import Sorting from '../../components/sorting/sorting';
 import { useAppSelector } from '../../hooks';
+import {  isHovered as hoveredInfo} from '../../types/isHovered';
 import { getFilteredOffers, getSortedOffers } from '../../utils/utils';
 
 
-export default function Main(): JSX.Element {
+function Main(): JSX.Element {
 
-  const { city, offers, sortType } = useAppSelector((state) => state);
+  const { offers } = useAppSelector(({DATA}) => DATA);
+  const { city, sortType } = useAppSelector(({APP}) => APP);
 
   const filteredOffers = getFilteredOffers(city, offers);
   const sortedOffers = getSortedOffers(filteredOffers, sortType);
+
+  const [isHovered, setIsHovered] = useState<hoveredInfo>({isCardHovered: false, id: 0});
 
   return (
     <div className="page page--gray page--main">
@@ -34,11 +39,11 @@ export default function Main(): JSX.Element {
               <b className="places__found">{filteredOffers.length} places to stay in {city.name}</b>
               <Sorting />
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={sortedOffers} className={'cities__place-card'} />
+                <OffersList offers={sortedOffers} className={'cities__place-card'} handleHoverEffect={setIsHovered} />
               </div>
             </section>
             <div className="cities__right-section">
-              <Map className={'cities__map'} offers={offers} city={city} />
+              <Map className={'cities__map'} offers={offers} city={city} isHovered={isHovered} />
             </div>
           </div>
         </div>
@@ -46,3 +51,5 @@ export default function Main(): JSX.Element {
     </div>
   );
 }
+
+export default memo(Main);

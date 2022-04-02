@@ -15,7 +15,8 @@ import OptionalRoute from '../optional-route/optional-route';
 
 function App(): JSX.Element {
 
-  const { authorizationStatus, isDataLoaded } = useAppSelector((state) => state);
+  const { authorizationStatus } = useAppSelector(({USER}) => USER);
+  const { isDataLoaded } = useAppSelector(({DATA}) => DATA);
 
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return (

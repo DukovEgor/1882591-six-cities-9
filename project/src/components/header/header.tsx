@@ -1,11 +1,11 @@
-import { ReactElement } from 'react';
+import { memo, ReactElement } from 'react';
 import Logo from '../logo/logo';
 
 type headerProps = {
   children?: ReactElement;
 }
 
-export default function Header({ children }: headerProps) {
+function Header({ children }: headerProps) {
   return (
     <header className="header">
       <div className="container">
@@ -17,3 +17,5 @@ export default function Header({ children }: headerProps) {
     </header>
   );
 }
+
+export default memo(Header, (prevProps, nextProps) => prevProps.children !== nextProps.children);

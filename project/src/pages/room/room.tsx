@@ -4,28 +4,26 @@ import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import Navigation from '../../components/navigation/navigation';
 import OffersList from '../../components/offers-list/offers-list';
-import Review from '../../components/review/review';
-import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchHotelAction, fetchNearbyAction, fetchReviewsAction } from '../../store/api-actions';
-import { AuthorizationStatus } from '../../utils/const';
 
 export default function Room(): JSX.Element {
+
   const { id } = useParams();
   const offerId = Number(id);
 
   const dispatch = useAppDispatch();
 
-  const { city, offers, offer, reviews, nearby, authorizationStatus } = useAppSelector((state) => state);
-  // eslint-disable-next-line no-console
-  console.log(reviews);
   useEffect(() => {
     dispatch(fetchHotelAction(offerId));
     dispatch(fetchReviewsAction(offerId));
     dispatch(fetchNearbyAction(offerId));
   }, [dispatch, offerId]);
 
+  const { city } = useAppSelector(({ APP }) => APP);
+  const { offers, offer, reviews, nearby } = useAppSelector(({ DATA }) => DATA);
+  const { authorizationStatus } = useAppSelector(({ USER }) => USER);
 
   const { images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods, host, description } = offer;
   const { avatarUrl, name, isPro } = host;
@@ -117,19 +115,16 @@ export default function Room(): JSX.Element {
                   </p>
                 </div>
               </div>
-              <ReviewsList reviewsCount={reviews.length} >
-                {reviews.map((index) => <Review key={index.id} {...index} />)}
-                {authorizationStatus === AuthorizationStatus.Auth && <ReviewsForm id={offerId} />}
-              </ReviewsList>
+              <ReviewsList reviews={reviews} authorizationStatus={authorizationStatus} offerId={offerId} />
             </div>
           </div>
-          <Map className={'property__map'} offers={offers} city={city} />
+          <Map className={'property__map'} offers={offers} city={city} isHovered={{ isCardHovered: false, id: 0 }} />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersList offers={nearby} className={'near-places__card'} />
+              <OffersList offers={nearby} className={'near-places__card'} handleHoverEffect={() => ''} />
             </div>
           </section>
         </div>

@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { setSortType } from '../../store/actions';
+import { setSortType } from '../../store/app-process';
 import { sortingTypes } from '../../utils/const';
 
-export default function Sorting() {
+function Sorting() {
   const dispatch = useAppDispatch();
 
   const [checkedType, setCheckedType] = useState('Popular');
@@ -40,3 +40,4 @@ export default function Sorting() {
     </form>
   );
 }
+export default memo(Sorting);

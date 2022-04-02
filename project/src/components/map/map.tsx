@@ -1,21 +1,22 @@
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import useMap from '../../hooks/useMap';
 import { ANCHOR_SIZES, ICONS_SIZES } from '../../utils/const';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Offers } from '../../types/offer';
 import { City } from '../../types/city';
-import { useAppSelector } from '../../hooks';
+import { isHovered as hoveredInfo } from '../../types/isHovered';
 
 
 type mapProps = {
   className: string,
   offers: Offers,
   city: City,
+  isHovered: hoveredInfo,
 }
 
-export default function Map({ className, offers, city }: mapProps) {
-  const { isCardHovered } = useAppSelector((state) => state);
+function Map({ className, offers, city, isHovered }: mapProps) {
+
 
   const mapRef = useRef(null);
   const map = useMap({ mapRef, city });
@@ -32,22 +33,36 @@ export default function Map({ className, offers, city }: mapProps) {
     iconAnchor: ANCHOR_SIZES,
   });
 
+  const { isCardHovered, id } = isHovered;
+
   useEffect(() => {
+
+    const markers: leaflet.Marker[] = [];
+
     if (map) {
       map.flyTo([city.location.latitude, city.location.longitude], city.location.zoom);
+
       offers.forEach((offer) => {
         const { location: { latitude, longitude } } = offer;
-        leaflet
-          .marker({
+
+        const marker = leaflet.marker(
+          {
             lat: latitude,
             lng: longitude,
-          }, {
-            icon: isCardHovered.isHovered && offer.id === isCardHovered.id ? activeCustomIcon : defaultCustomIcon,
-          })
-          .addTo(map);
+          },
+          {
+            icon: isCardHovered && offer.id === id ? activeCustomIcon : defaultCustomIcon,
+          });
+
+        marker.addTo(map);
+        markers.push(marker);
       });
     }
-  }, [activeCustomIcon, city.location.latitude, city.location.longitude, city.location.zoom, defaultCustomIcon, isCardHovered.id, isCardHovered.isHovered, map, offers]);
+
+    return () => {
+      markers.forEach((index) => index.remove());
+    };
+  }, [activeCustomIcon, city.location.latitude, city.location.longitude, city.location.zoom, defaultCustomIcon, id, isCardHovered, isHovered, map, offers]);
 
   return (
     <section
@@ -56,3 +71,5 @@ export default function Map({ className, offers, city }: mapProps) {
     />
   );
 }
+
+export default memo(Map, (prevProps, nextProps) => prevProps.city === nextProps.city && prevProps.isHovered === nextProps.isHovered);
