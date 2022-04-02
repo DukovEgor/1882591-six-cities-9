@@ -6,6 +6,7 @@ import Navigation from '../../components/navigation/navigation';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFavorites } from '../../store/api-actions';
 import { Offers } from '../../types/offer';
+import FavoritesEmpty from '../favorites-empty/favorites-empty';
 
 export default function Favorites() {
 
@@ -37,12 +38,20 @@ export default function Favorites() {
       </Header>
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              {Object.keys(favoritesByPlace).map((place) => <FavoritesListItem key={place} offers={favoritesByPlace[place]} city={place} />)}
-            </ul>
-          </section>
+          {
+            favorites
+              ?
+              (
+                <section className="favorites">
+                  <h1 className="favorites__title">Saved listing</h1>
+                  <ul className="favorites__list">
+                    {Object.keys(favoritesByPlace).map((place) => <FavoritesListItem key={place} offers={favoritesByPlace[place]} city={place} />)}
+                  </ul>
+                </section>
+              )
+              :
+              <FavoritesEmpty />
+          }
         </div>
       </main>
       <footer className="footer container">
