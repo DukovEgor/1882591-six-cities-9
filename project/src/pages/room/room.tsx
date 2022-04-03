@@ -120,7 +120,7 @@ export default function Room(): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersList offers={nearby} className={'near-places__card'} handleHoverEffect={() => ''} />
+              <OffersList offers={nearby} className={'near-places__card'} onHover={() => ''} />
             </div>
           </section>
         </div>

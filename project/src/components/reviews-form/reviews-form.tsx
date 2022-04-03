@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { useAppDispatch } from '../../hooks';
@@ -9,24 +9,25 @@ export default function ReviewsForm({ id }: { id: number }): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const { register, reset, handleSubmit, formState: { errors } } = useForm<INewReview>({ mode: 'all' });
+  const { register, handleSubmit, reset, formState: { errors, isDirty, isValid } } = useForm<INewReview>({ mode: 'onChange' });
+
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const onSubmit: SubmitHandler<INewReview> = (data) => {
-    dispatch(fetchNewReviewAction({ ...data, id }));
-    reset();
+    setIsDisabled(true);
+    dispatch(fetchNewReviewAction({ ...data, id, reset, setIsDisabled }));
   };
 
   useEffect(() => {
     errors.comment && toast.error(errors.comment?.message);
     errors.rating && toast.error(errors.rating?.message);
-  });
-
+  }, [errors.comment, errors.rating]);
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit(onSubmit)}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        <input className="form__rating-input visually-hidden" defaultValue={5} id="5-stars" type="radio" {
+        <input disabled={isDisabled} className="form__rating-input visually-hidden" defaultValue={5} id="5-stars" type="radio" {
           ...register('rating',
             {
               required: 'Rating is reqired field! Please rate from 1 to 5 stars.',
@@ -38,7 +39,7 @@ export default function ReviewsForm({ id }: { id: number }): JSX.Element {
             <use xlinkHref="#icon-star" />
           </svg>
         </label>
-        <input className="form__rating-input visually-hidden" defaultValue={4} id="4-stars" type="radio" {
+        <input disabled={isDisabled} className="form__rating-input visually-hidden" defaultValue={4} id="4-stars" type="radio" {
           ...register('rating',
             {
               required: 'Rating is reqired field! Please rate from 1 to 5 stars.',
@@ -50,7 +51,7 @@ export default function ReviewsForm({ id }: { id: number }): JSX.Element {
             <use xlinkHref="#icon-star" />
           </svg>
         </label>
-        <input className="form__rating-input visually-hidden" defaultValue={3} id="3-stars" type="radio" {
+        <input disabled={isDisabled} className="form__rating-input visually-hidden" defaultValue={3} id="3-stars" type="radio" {
           ...register('rating',
             {
               required: 'Rating is reqired field! Please rate from 1 to 5 stars.',
@@ -62,7 +63,7 @@ export default function ReviewsForm({ id }: { id: number }): JSX.Element {
             <use xlinkHref="#icon-star" />
           </svg>
         </label>
-        <input className="form__rating-input visually-hidden" defaultValue={2} id="2-stars" type="radio" {
+        <input disabled={isDisabled} className="form__rating-input visually-hidden" defaultValue={2} id="2-stars" type="radio" {
           ...register('rating',
             {
               required: 'Rating is reqired field! Please rate from 1 to 5 stars.',
@@ -74,7 +75,7 @@ export default function ReviewsForm({ id }: { id: number }): JSX.Element {
             <use xlinkHref="#icon-star" />
           </svg>
         </label>
-        <input className="form__rating-input visually-hidden" defaultValue={1} id="1-star" type="radio" {
+        <input disabled={isDisabled} className="form__rating-input visually-hidden" defaultValue={1} id="1-star" type="radio" {
           ...register('rating',
             {
               required: 'Rating is reqired field! Please rate from 1 to 5 stars.',
@@ -87,7 +88,7 @@ export default function ReviewsForm({ id }: { id: number }): JSX.Element {
           </svg>
         </label>
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" placeholder="Tell how was your stay, what you like and what can be improved" defaultValue={''}
+      <textarea disabled={isDisabled} className="reviews__textarea form__textarea" id="review" placeholder="Tell how was your stay, what you like and what can be improved" defaultValue={''}
         {...register('comment',
           {
             required: 'Comment is reqired field! Please tell us about you experience there.',
@@ -106,7 +107,7 @@ export default function ReviewsForm({ id }: { id: number }): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={(errors.rating && true) || (errors.comment && true)}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={!isDirty || !isValid || isDisabled} >Submit</button>
       </div>
     </form>
   );

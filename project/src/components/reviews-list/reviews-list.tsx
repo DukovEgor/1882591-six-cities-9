@@ -8,6 +8,7 @@ type ReviewsListProps = {
   offerId: number,
   authorizationStatus: AuthorizationStatus,
 }
+
 export default function ReviewsList({ reviews, offerId, authorizationStatus }: ReviewsListProps): JSX.Element {
   return (
     <section className="property__reviews reviews">

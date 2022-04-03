@@ -6,6 +6,7 @@ export default function Review({user, comment, date, rating}: IReview): JSX.Elem
   const {avatarUrl, name} = user;
 
   const ratingWidth = rating * widthPointsPerStep;
+
   const rawDate = new Date(date);
   const commentDate = rawDate.toLocaleString('en-EN', { year: 'numeric', month: 'long' });
   const commentAttr = rawDate.toLocaleString('en-EN', { year: 'numeric', month: 'numeric', day: 'numeric' });

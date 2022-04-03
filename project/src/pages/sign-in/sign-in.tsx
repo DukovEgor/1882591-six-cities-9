@@ -19,7 +19,7 @@ export default function SignIn() {
   });
 
   const onSubmit: SubmitHandler<AuthData> = (data) => {
-    //useCallback
+
     dispatch(loginAction(data));
     reset();
     navigate('/');

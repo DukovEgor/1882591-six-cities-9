@@ -8,10 +8,10 @@ import Bookmark from '../bookmark/bookmark';
 type cardProps = {
   className: string,
   index: Offer,
-  handleHoverEffect: callbackType,
+  onHover: callbackType,
 }
 
-function Card({ index, className, handleHoverEffect }: cardProps): JSX.Element {
+function Card({ index, className, onHover }: cardProps): JSX.Element {
 
   const { title, price, type, id, isPremium, isFavorite, rating, previewImage } = index;
 
@@ -20,8 +20,8 @@ function Card({ index, className, handleHoverEffect }: cardProps): JSX.Element {
   return (
     <article
       className={`${className} place-card`}
-      onMouseEnter={() => handleHoverEffect({ isCardHovered: true, id })}
-      onMouseLeave={() => handleHoverEffect({ isCardHovered: false, id })}
+      onMouseEnter={() => onHover({ isCardHovered: true, id })}
+      onMouseLeave={() => onHover({ isCardHovered: false, id })}
     >
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className={`${className === 'favorites__card' ? 'favorites__image-wrapper' : 'cities__image-wrapper'} place-card__image-wrapper`}>

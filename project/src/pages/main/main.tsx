@@ -43,7 +43,7 @@ export default function Main(): JSX.Element {
                   <b className="places__found">{filteredOffers.length} places to stay in {city.name}</b>
                   <Sorting />
                   <div className="cities__places-list places__list tabs__content">
-                    <OffersList offers={sortedOffers} className={'cities__place-card'} handleHoverEffect={setIsHovered} />
+                    <OffersList offers={sortedOffers} className={'cities__place-card'} onHover={setIsHovered} />
                   </div>
                 </section>
                 :
