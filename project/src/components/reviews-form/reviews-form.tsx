@@ -23,8 +23,6 @@ export default function ReviewsForm({ id }: { id: number }): JSX.Element {
     errors.rating && toast.error(errors.rating?.message);
   }, [errors.comment, errors.rating]);
 
-  // eslint-disable-next-line no-console
-  console.log(isDisabled); //X4
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit(onSubmit)}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>

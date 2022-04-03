@@ -18,7 +18,7 @@ export default function FavoritesListItem({city, offers}: FavoritesListItemProps
         </div>
       </div>
       <div className="favorites__places">
-        <OffersList offers={offers} className={'favorites__card'} handleHoverEffect={() => ''} />
+        <OffersList offers={offers} className={'favorites__card'} onHover={() => ''} />
       </div>
     </li>
   );

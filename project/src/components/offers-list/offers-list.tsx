@@ -5,10 +5,10 @@ import { handleHoverEffect as callbackType } from '../../types/isHovered';
 type OffersListProps = {
   offers: Offers,
   className: string,
-  handleHoverEffect: callbackType,
+  onHover: callbackType,
 }
 
-export default function OffersList({ className, offers, handleHoverEffect }: OffersListProps) {
+export default function OffersList({ className, offers, onHover }: OffersListProps) {
 
   return (
     <>
@@ -16,7 +16,7 @@ export default function OffersList({ className, offers, handleHoverEffect }: Off
         <Card
           className={className}
           key={index.id}
-          index={index} handleHoverEffect={handleHoverEffect}
+          index={index} onHover={onHover}
         />))}
     </>
   );
