@@ -1,5 +1,5 @@
 # Руководство по работе с проектом
-Продакшн-версию можно посмотреть тут [SixCities]([https://dukov-guitar-shop.vercel.app/](https://dukov-six-cities.vercel.app/sign-in)).
+Продакшн-версию можно посмотреть тут [SixCities](https://dukov-six-cities.vercel.app/sign-in).
 
 Данный проект создан с помощью [Create React App](https://github.com/facebook/create-react-app).
 
